@@ -23,7 +23,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/hey", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String hey(Locale locale, Model model) {
 		logger.info("Welcome home! the client locale is "+ locale.toString());
 		
 		Date date = new Date();
@@ -32,6 +32,18 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
+		
+		return "hey";
+	}
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		logger.info("Root home! the client locale is "+ locale.toString());
+		
+		
+		String msg = "Bienvenido a la encuesta para elegir el logo de MadridJS";
+		
+		model.addAttribute("msg", msg );
 		
 		return "home";
 	}

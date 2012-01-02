@@ -2,13 +2,12 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>:: MadridJS.org ::</title>
+	<title>Home</title>
 </head>
 <body>
 <h1>
-	${msg}
+	Hello world!  
 </h1>
-
-Estamos en <a href="http://madridjs.org">http://madridjs.org</a>
+<P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>
