@@ -23,6 +23,4 @@
 	
 	<context:component-scan base-package="org.madridjs.logopoll" />
 	
-	
-	
 </beans:beans>
