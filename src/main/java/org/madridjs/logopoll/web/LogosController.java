@@ -74,7 +74,7 @@ public class LogosController {
 		try{
 			
 			items = logosService.listAllRest();
-			model.addAttribute("logos",items);
+			
 			
 		}catch(Throwable e){
 			throw new GeneralErrorException(e);
@@ -82,6 +82,8 @@ public class LogosController {
 		
 		if(items == null)
 			throw new ResourceNotFoundException("Recurso no encontrado");
+		
+		model.addAttribute("logos",items);
 		
 		return "logos";
 		
