@@ -1,6 +1,6 @@
+<!doctype html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<!doctype html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -43,22 +43,23 @@
 			<form method="post" action="/login">
 				<div class="clearfix">
 					<input class="xlarge" id="email" name="email" size="30" type="email" required>
-					<button type="submit" class="btn primary">Verificar</button>
+					<button type="submit" class="btn primary" data-loading-text="verificando...">verificar</button>
 				</div>
 			</form>
 		</article>
 		<article id="step_2" class="step">
 			<div class="hero-unit">
-				<h1>Vota el logo de MadridJS</h1>
-				<p>Elige los <strong>3 logos</strong> que más te gusten.</p>
+				<h1>Elige los <strong>3 logos</strong> que más te gusten.</h1>
 			</div>
-			<form method="POST" action="/login">
+			<form method="post" action="/vote">
 				<div id="logoList" data-getdata="/logos"></div>
-				<button type="submit" class="btn primary">Votar</button>
+				<button type="submit" class="btn primary" data-loading-text="votando...">votar</button>
 			</form>
 		</article>
 		<article id="step_3" class="step">
-			
+			<div class="hero-unit">
+				<h1>¡Gracias por votar!</h1>
+			</div>
 		</article>
 		<footer>
 			<p>Estamos en <a href="http://madridjs.org">http://madridjs.org</a></p>
@@ -67,7 +68,7 @@
 	<!-- Tempaltes -->
 
 	<script id="errorTmpl" type="text/x-jquery-tmpl"> 
-		<div id="${id}" class="alert-message block-message error fade in close" data-alert="alert">
+		<div id="${id}" class="alert-message block-message error fade" data-alert="alert">
 			<div class="container close">
 				<p><strong>Error</strong> ${errorMsg}</p>
 			</div>
@@ -75,13 +76,17 @@
 	</script>
 	
 	<script id="logoListTmpl" type="text/x-jquery-tmpl"> 
-	    <ul id="logos">{{tmpl "#logoItemTemplate"}}</ul>
+		<p>Vota 3 de los \${count} logos presentados.</p>
+	    <ul id="logos" class="media-grid">{{tmpl(items) "#logoItemTmpl"}}</ul>
 	</script>
 
 	<script id="logoItemTmpl" type="text/x-jquery-tmpl">
 		<li>
-			<input type="checkbox" name="logo" value="${id}">
-			<img class="thumbnail" src="${url}" alt="${description}"/>
+			<input type="checkbox" name="logo" id="logo_\${id}" value="\${id}">
+			<label for="logo_\${id}">
+				<img class="thumbnail" src="\${url}" alt="\${description}"/>
+				<p>\${description}</p>
+			</label>
 		</li>
 	</script>
   <!-- JavaScript at the bottom for fast page loading -->
@@ -95,6 +100,7 @@
 
   <!-- BootStrap scripts -->
   <script defer src="resources/js/libs/bootstrap/bootstrap-alerts.js"></script>
+  <script defer src="resources/js/libs/bootstrap/bootstrap-buttons.js"></script>
 
   <!-- scripts concatenated and minified via build script -->
   <script defer src="resources/js/plugins.js"></script>
@@ -116,6 +122,10 @@
   <!--[if lt IE 7 ]>
     <script defer src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
     <script defer>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
+
+  <!--[if lt IE 9]>
+    <script type="text/javascript" src="resources/js/libs/selectivizr.min.js"></script>
   <![endif]-->
 
 </body>

@@ -1,4 +1,45 @@
 .hero-unit { margin-top:30px; }
 
-#messages { position:absolute; top:0; left:0; right:0; }
+#messages { position:fixed; top:0; left:0; right:0; }
+#messages .alert-message { border-width:0 0 1px 0; border-radius:0; }
 div.close { float:none; }
+
+
+.media-grid label {
+  float: left;
+  width:auto;
+  padding: 4px;
+  margin: 0 0 18px 20px;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+  text-align:left;
+}
+.media-grid label img, .media-grid label p {
+  display: inline-block;
+  vertical-align:top;
+}
+.media-grid label p {
+	width:178px;
+	margin:0 9px;
+}
+.media-grid input {
+  display: none;
+}
+
+.media-grid label:hover {
+  border-color: #0069d6;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+  -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+  box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+  cursor:pointer;
+}
+
+
+.media-grid input:checked+label {
+	background:whiteSmoke;
+}
