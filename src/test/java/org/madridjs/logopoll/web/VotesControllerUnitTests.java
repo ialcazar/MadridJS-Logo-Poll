@@ -27,12 +27,9 @@ public class VotesControllerUnitTests {
 		
 		when(votesService.listAllRest()).thenReturn(items);
 		
-		String returned = votesController.listAllVotes(model);
+		items = votesController.listAllVotes(model);
 		
 		verify(votesService).listAllRest();
-		verify(model).addAttribute("votes",items);
-		
-		assertEquals("votes",returned);
 	}
 	
 	@Test

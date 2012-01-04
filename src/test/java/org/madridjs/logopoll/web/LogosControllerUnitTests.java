@@ -25,12 +25,12 @@ public class LogosControllerUnitTests {
 		
 		when(logosService.listAllRest()).thenReturn(items);
 		
-		String returned = logosController.listAllLogos(model);
+		items = logosController.listAllLogos(model);
 		
 		verify(logosService).listAllRest();
-		verify(model).addAttribute("logos",items);
 		
-		assertEquals("logos",returned);
+		
+		
 	}
 	
 	@Test
