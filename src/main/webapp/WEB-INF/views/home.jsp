@@ -1,14 +1,122 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<html>
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-	<title>:: MadridJS.org ::</title>
-</head>
-<body>
-<h1>
-	${msg}
-</h1>
+  <meta charset="utf-8">
 
-Estamos en <a href="http://madridjs.org">http://madridjs.org</a>
+  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+       More info: h5bp.com/b/378 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Vota el logo de Madrid JS</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile viewport optimized: h5bp.com/viewport -->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+
+<link rel="stylesheet" href="resources/css/bootstrap.css">  
+<link rel="stylesheet" href="resources/css/style.css">
+  
+  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+
+  <!-- All JavaScript at the bottom, except this Modernizr build incl. Respond.js
+       Respond is a polyfill for min/max-width media queries. Modernizr enables HTML5 elements & feature detects; 
+       for optimal performance, create your own custom Modernizr build: www.modernizr.com/download/ -->
+  <script src="resources/js/libs/modernizr.min.js"></script>
+</head>
+
+<body>
+	<div id="messages"></div>
+	<section class="container">
+		<article id="step_1" class="step hero-unit">
+			<h1>Vota el logo de MadridJS</h1>
+			<p>Bienvenido a la encuesta para elegir el logo de MadridJS. Introduce tu email para entrar en el sistema de votación</p>
+			<form method="post" action="/login">
+				<div class="clearfix">
+					<input class="xlarge" id="email" name="email" size="30" type="email" required>
+					<button type="submit" class="btn primary">Verificar</button>
+				</div>
+			</form>
+		</article>
+		<article id="step_2" class="step">
+			<div class="hero-unit">
+				<h1>Vota el logo de MadridJS</h1>
+				<p>Elige los <strong>3 logos</strong> que más te gusten.</p>
+			</div>
+			<form method="POST" action="/login">
+				<div id="logoList" data-getdata="/logos"></div>
+				<button type="submit" class="btn primary">Votar</button>
+			</form>
+		</article>
+		<article id="step_3" class="step">
+			
+		</article>
+		<footer>
+			<p>Estamos en <a href="http://madridjs.org">http://madridjs.org</a></p>
+		</footer>
+	</div>
+	<!-- Tempaltes -->
+
+	<script id="errorTmpl" type="text/x-jquery-tmpl"> 
+		<div id="${id}" class="alert-message block-message error fade in close" data-alert="alert">
+			<div class="container close">
+				<p><strong>Error</strong> ${errorMsg}</p>
+			</div>
+		</div>
+	</script>
+	
+	<script id="logoListTmpl" type="text/x-jquery-tmpl"> 
+	    <ul id="logos">{{tmpl "#logoItemTemplate"}}</ul>
+	</script>
+
+	<script id="logoItemTmpl" type="text/x-jquery-tmpl">
+		<li>
+			<input type="checkbox" name="logo" value="${id}">
+			<img class="thumbnail" src="${url}" alt="${description}"/>
+		</li>
+	</script>
+  <!-- JavaScript at the bottom for fast page loading -->
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="resources/js/libs/jquery/jquery.min.js"><\/script>')</script>
+
+  <!-- Jquery templates -->
+  <script defer src="resources/js/libs/jquery/jquery.tmpl.min.js"></script>
+
+  <!-- BootStrap scripts -->
+  <script defer src="resources/js/libs/bootstrap/bootstrap-alerts.js"></script>
+
+  <!-- scripts concatenated and minified via build script -->
+  <script defer src="resources/js/plugins.js"></script>
+  <script defer src="resources/js/script.js"></script>
+  <!-- end scripts -->
+
+
+  <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
+       mathiasbynens.be/notes/async-analytics-snippet -->
+  <script>
+    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+  </script>
+
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7 ]>
+    <script defer src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script defer>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
+
 </body>
 </html>
