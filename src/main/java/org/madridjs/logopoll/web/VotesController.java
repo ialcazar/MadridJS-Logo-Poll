@@ -44,7 +44,7 @@ public class VotesController {
 		try{
 			
 			items = votesService.listAllRest();
-			model.addAttribute("votes",items);
+			
 			
 		}catch(Throwable e){
 			throw new GeneralErrorException(e);
@@ -52,6 +52,8 @@ public class VotesController {
 		
 		if(items == null)
 			throw new ResourceNotFoundException("Recurso no encontrado");
+		
+		model.addAttribute("votes",items);
 		
 		return "votes";
 		
