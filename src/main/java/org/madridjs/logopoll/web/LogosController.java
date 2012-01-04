@@ -53,17 +53,6 @@ public class LogosController {
 		return "hey";
 	}
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Root home! the client locale is "+ locale.toString());
-		
-		
-		String msg = "Bienvenido a la encuesta para elegir el logo de MadridJS";
-		
-		model.addAttribute("msg", msg );
-		
-		return "home";
-	}
 	
 	@RequestMapping(value = "/logos", method = RequestMethod.GET)
 	public  String listAllLogos(Model model) {
