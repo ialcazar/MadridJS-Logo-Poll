@@ -124,5 +124,9 @@
     <script defer>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
   <![endif]-->
 
+  <!--[if lt IE 9]>
+    <script type="text/javascript" src="resources/js/libs/selectivizr.min.js"></script>
+  <![endif]-->
+
 </body>
 </html>
