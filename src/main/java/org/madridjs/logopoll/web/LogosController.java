@@ -66,8 +66,8 @@ public class LogosController {
 	}
 	
 	@RequestMapping(value = "/logos", method = RequestMethod.GET)
-	public  ModelAndView listAllLogos() {
-		logger.info("Starting listAllLogos " );
+	public  String listAllLogos(Model model) {
+		logger.debug("Starting listAllLogos " );
 		
 		
 		LogosRest items = null;
@@ -75,6 +75,7 @@ public class LogosController {
 		try{
 			
 			items = logosService.listAllRest();
+			model.addAttribute("logos",items);
 			
 			
 		}catch(Throwable e){
@@ -84,7 +85,7 @@ public class LogosController {
 		if(items == null)
 			throw new ResourceNotFoundException("Recurso no encontrado");
 		
-		return new ModelAndView("logos", "logos", items);
+		return "logos";
 		
 	}
 	
