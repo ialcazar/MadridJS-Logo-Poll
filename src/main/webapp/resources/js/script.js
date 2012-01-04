@@ -10,11 +10,12 @@ var stepsForm = function(selector, options)
 			, errorId: 'error'
 			, errorTimeout: 5 //seconds
 			, templateSufix: 'Tmpl'
+			, stepsFunctions: []
 		}
 	};
-
+	$.extend(true, sf.settings, options);
+	
 	var _init = function(){
-		$.extend(true, sf.settings, options);
 		sf.steps = sf.$DOMscope.find(sf.settings.stepsSelector);
 		sf.currentStep = 0;
 		_setErrorLayer();
@@ -28,14 +29,9 @@ var stepsForm = function(selector, options)
 		$('#' + sf.templateId).template(sf.templateId);
 		sf.$messages = sf.$DOMscope.find(sf.settings.messagesSelector).ajaxError(
 			function(event, request, settings){
-				var data = {
-					id: sf.settings.errorId
-				};
+				var data = { id: sf.settings.errorId };
 				$.extend(true, data, request );
-				var $errorContent = $.tmpl(sf.templateId, data).appendTo(sf.$messages.empty()).addClass('in');
-				setTimeout(function(){
-					$errorContent.alert('close');
-				}, sf.settings.errorTimeout * 1000);
+				sf.showError(data);
 			}
 		);
 	};
@@ -48,32 +44,54 @@ var stepsForm = function(selector, options)
 			sf.steps.eq(step).find('form').bind('submit', sf.submitForm);
 		}	
 	};
+	sf.showError = function(data){
+		var $errorContent = $.tmpl(sf.templateId, data).appendTo(sf.$messages.empty()).addClass('in');
+		setTimeout(function(){
+			$errorContent.alert('close');
+		}, sf.settings.errorTimeout * 1000);
+	};
 	sf.submitForm = function(event){
 		event.preventDefault();
 		var form_action = this.action
-		  , form_method = this.method;
-		
-		sf.button = $(this).find('button').button();
-		$.ajax({
-			  url: form_action
-			, type: form_method
-			, data: $(this).serialize()
-			, beforeSend: sf.submitFormBeforeSend
-			, success: sf.submitFormSuccess
-			, error: sf.submitFormError
-			, complete: sf.submitFormComplete
-		});
+		  , form_method = this.method
+		  , stepsFunctions = $.extend(true, {}, sf.stepsFunctions, sf.settings.stepsFunctions[sf.currentStep])
+		  , validForm = stepsFunctions.validForm();
+		if( validForm === true )
+		{
+			sf.button = $(this).find('button').button();
+			$.ajax({
+				  url: form_action
+				, type: form_method
+				, data: $(this).serialize()
+				, beforeSend: stepsFunctions.submitFormBeforeSend
+				, success: stepsFunctions.submitFormSuccess
+				, error: stepsFunctions.submitFormError
+				, complete: stepsFunctions.submitFormComplete
+			});
+		}
+		else
+		{
+			sf.showError({
+				  id: 'errorStep' + sf.currentStep
+				, errorMsg: validForm
+			});
+		}
 	};
-	sf.submitFormBeforeSend = function(data, textStatus, jqXHR){
+	
+	sf.stepsFunctions = {};
+	sf.stepsFunctions.validForm = function(){
+		return true;
+	};
+	sf.stepsFunctions.submitFormBeforeSend = function(){
 		sf.button.button('loading');
 	};
-	sf.submitFormComplete = function(data, textStatus, jqXHR){
+	sf.stepsFunctions.submitFormComplete = function(){
 		sf.button = null;
 	};
-	sf.submitFormError = function(data, textStatus, jqXHR){
+	sf.stepsFunctions.submitFormError = function(){
 		sf.button.button('reset');
 	};
-	sf.submitFormSuccess = function(data, textStatus, jqXHR){
+	sf.stepsFunctions.submitFormSuccess = function(data){
 		sf.button.button('complete');
 		sf.currentStep++;
 		sf.steps.eq(sf.currentStep).find('[data-getdata]').each(function(){
@@ -81,7 +99,7 @@ var stepsForm = function(selector, options)
 			var templateId = this.id + sf.settings.templateSufix;
 			$('#' + templateId).template(templateId);
 			
-			var data = {
+			data = {
 				  'count': 10
 				, items: [
 					  {
@@ -181,4 +199,21 @@ var stepsForm = function(selector, options)
 	return sf;
 };
 
-window.LogoPoll = new stepsForm();
+var logoPollSettings = {};
+logoPollSettings.stepsFunctions = [];
+logoPollSettings.stepsFunctions[1] = {
+	validForm: function(){
+		var logosChecked = LogoPoll.steps.eq(LogoPoll.currentStep).find('[name="logo"]:checked');
+		switch( logosChecked.length )
+		{
+			case 0:
+				return 'No has seleccionado ningún logo';
+			case 1: case 2: case 3:
+				return true;
+			default:
+				return 'Has seleccionado más de 3 logos';
+		}
+	}
+};
+
+window.LogoPoll = new stepsForm('body', logoPollSettings);

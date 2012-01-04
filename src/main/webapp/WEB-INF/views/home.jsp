@@ -49,7 +49,7 @@
 		</article>
 		<article id="step_2" class="step">
 			<div class="hero-unit">
-				<h1>Elige los <strong>3 logos</strong> que más te gusten.</h1>
+				<h1>Elige <strong>3 logos</strong></h1>
 			</div>
 			<form method="post" action="/vote">
 				<div id="logoList" data-getdata="/logos"></div>
@@ -68,9 +68,9 @@
 	<!-- Tempaltes -->
 
 	<script id="errorTmpl" type="text/x-jquery-tmpl"> 
-		<div id="${id}" class="alert-message block-message error fade" data-alert="alert">
+		<div id="\${id}" class="alert-message block-message error fade" data-alert="alert">
 			<div class="container close">
-				<p><strong>Error</strong> ${errorMsg}</p>
+				<p><strong>Error</strong> \${errorMsg}</p>
 			</div>
 		</div>
 	</script>
