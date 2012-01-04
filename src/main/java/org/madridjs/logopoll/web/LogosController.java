@@ -69,14 +69,12 @@ public class LogosController {
 	public  String listAllLogos(Model model) {
 		logger.debug("Starting listAllLogos " );
 		
-		
 		LogosRest items = null;
 		
 		try{
 			
 			items = logosService.listAllRest();
 			model.addAttribute("logos",items);
-			
 			
 		}catch(Throwable e){
 			throw new GeneralErrorException(e);

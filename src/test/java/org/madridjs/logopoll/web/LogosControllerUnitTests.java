@@ -10,7 +10,7 @@ import org.madridjs.logopoll.exceptions.GeneralErrorException;
 import org.madridjs.logopoll.services.LoginService;
 
 
-public class LoginControllerUnitTests {
+public class LogosControllerUnitTests {
 
 	@Test
 	public void given_an_email_when_login_then_result_ok() {
