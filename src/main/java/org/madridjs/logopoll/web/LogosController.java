@@ -1,15 +1,26 @@
 package org.madridjs.logopoll.web;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
+import org.madridjs.logopoll.dto.Logo;
+import org.madridjs.logopoll.exceptions.GeneralErrorException;
+import org.madridjs.logopoll.exceptions.ResourceNotFoundException;
+import org.madridjs.logopoll.rest.LogoRest;
+import org.madridjs.logopoll.rest.LogosRest;
+import org.madridjs.logopoll.services.LogosService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Handles requests for the application home page.
@@ -18,6 +29,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LogosController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LogosController.class);
+	private LogosService logosService;
+	
+	@Inject
+	public LogosController(LogosService logosService){
+		this.logosService = logosService;
+	}
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -46,6 +63,29 @@ public class LogosController {
 		model.addAttribute("msg", msg );
 		
 		return "home";
+	}
+	
+	@RequestMapping(value = "/logos", method = RequestMethod.GET)
+	public  ModelAndView listAllLogos() {
+		logger.info("Starting listAllLogos " );
+		
+		
+		LogosRest items = null;
+		
+		try{
+			
+			items = logosService.listAllRest();
+			
+			
+		}catch(Throwable e){
+			throw new GeneralErrorException(e);
+		}
+		
+		if(items == null)
+			throw new ResourceNotFoundException("Recurso no encontrado");
+		
+		return new ModelAndView("logos", "logos", items);
+		
 	}
 	
 }
