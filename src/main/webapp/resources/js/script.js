@@ -2,208 +2,197 @@ var stepsForm = function(selector, options)
 {
 	selector = selector || document.body;
 	
-	var sf = {
-		  $DOMscope: $(selector)
-		, settings: {
-			  stepsSelector: '.step'
-			, messagesSelector: '#messages'
-			, errorId: 'error'
-			, errorTimeout: 5 //seconds
-			, templateSufix: 'Tmpl'
-			, stepsFunctions: []
-		}
+	this.$DOMscope =  $(selector);
+	this.settings = {
+		  stepsSelector: '.step'
+		, messagesSelector: '#messages'
+		, errorId: 'error'
+		, errorTimeout: 5 //seconds
+		, templateSufix: 'Tmpl'
+		, stepFunctions: []
 	};
-	$.extend(true, sf.settings, options);
+	
+	$.extend(true, this.settings, options);
 	
 	var _init = function(){
-		sf.steps = sf.$DOMscope.find(sf.settings.stepsSelector);
-		sf.currentStep = 0;
-		_setErrorLayer();
-		_bindEvents();
-		sf.showCurrentStep();
-		sf.$DOMscope.data('sf', sf);
+		this.steps = this.$DOMscope.find(this.settings.stepsSelector);
+		this.currentStep = 0;
+		_setErrorLayer.call(this);
+		_setSteps.call(this);
+		this.showCurrentStep();
+		this.$DOMscope.data('sf', this);
 	};
 	var _setErrorLayer = function()
 	{
-		sf.templateId = sf.settings.errorId + sf.settings.templateSufix;
-		$('#' + sf.templateId).template(sf.templateId);
-		sf.$messages = sf.$DOMscope.find(sf.settings.messagesSelector).ajaxError(
+		var myThis = this;
+		this.templateId = this.settings.errorId + this.settings.templateSufix;
+		$('#' + this.templateId).template(this.templateId);
+		this.$messages = this.$DOMscope.find(this.settings.messagesSelector).ajaxError(
 			function(event, request, settings){
-				var data = { id: sf.settings.errorId };
+				var data = { id: myThis.settings.errorId };
 				$.extend(true, data, request );
-				sf.showError(data);
+				myThis.showError(data);
 			}
 		);
 	};
-	var _bindEvents = function(){
+	var _setSteps = function(){
 		var step
-		  , steps = sf.steps.length;
+		  , steps = this.steps.length
+		  , myThis = this;
 		
 		for( step = 0; step < steps; step++)
 		{
-			sf.steps.eq(step).find('form').bind('submit', sf.submitForm);
+			var $step = this.steps.eq(step);
+			$step[0].stepFunctions = $.extend(true, {}, this.stepFunctions, this.settings.stepFunctions[step]);
+			$step.find('form').bind('submit', function(event){
+				myThis.submitForm(event);
+			});
+			
 		}	
 	};
-	sf.showError = function(data){
-		var $errorContent = $.tmpl(sf.templateId, data).appendTo(sf.$messages.empty()).addClass('in');
+	this.showError = function(data){
+		var $errorContent = $.tmpl(this.templateId, data).appendTo(this.$messages.empty()).addClass('in');
 		setTimeout(function(){
 			$errorContent.alert('close');
-		}, sf.settings.errorTimeout * 1000);
+		}, this.settings.errorTimeout * 1000);
 	};
-	sf.submitForm = function(event){
+	this.submitForm = function(event){
 		event.preventDefault();
-		var form_action = this.action
-		  , form_method = this.method
-		  , stepsFunctions = $.extend(true, {}, sf.stepsFunctions, sf.settings.stepsFunctions[sf.currentStep])
-		  , validForm = stepsFunctions.validForm();
+		var form = event.target
+		  , $form = $(form)
+		  , form_action = form.action
+		  , form_method = form.method
+		  , stepFunctions = this.steps[this.currentStep].stepFunctions
+		  , validForm = stepFunctions.validForm.apply(this, [$form])
+		  , myThis = this;
 		if( validForm === true )
 		{
-			sf.button = $(this).find('button').button();
+			this.button = $form.find('[type="submit"]').button();
 			$.ajax({
 				  url: form_action
 				, type: form_method
-				, data: $(this).serialize()
-				, beforeSend: stepsFunctions.submitFormBeforeSend
-				, success: stepsFunctions.submitFormSuccess
-				, error: stepsFunctions.submitFormError
-				, complete: stepsFunctions.submitFormComplete
+				, data: $form.serialize()
+				, beforeSend: function(){
+					stepFunctions.submitFormBeforeSend.apply(myThis, arguments.callee.arguments);
+				}
+				, success: function(){
+					stepFunctions.submitFormSuccess.apply(myThis, arguments.callee.arguments);
+				}
+				, error: function(){
+					stepFunctions.submitFormError.apply(myThis, arguments.callee.arguments);
+				}
+				, complete: function(){
+					stepFunctions.submitFormComplete.apply(myThis, arguments.callee.arguments);
+				}
 			});
 		}
 		else
 		{
-			sf.showError({
-				  id: 'errorStep' + sf.currentStep
+			this.showError({
+				  id: 'errorStep' + this.currentStep
 				, errorMsg: validForm
 			});
 		}
 	};
 	
-	sf.stepsFunctions = {};
-	sf.stepsFunctions.validForm = function(){
+	this.stepFunctions = {};
+	this.stepFunctions.validForm = function($form){
 		return true;
 	};
-	sf.stepsFunctions.submitFormBeforeSend = function(){
-		sf.button.button('loading');
+	this.stepFunctions.submitFormBeforeSend = function(){
+		this.button.button('loading');
 	};
-	sf.stepsFunctions.submitFormComplete = function(){
-		sf.button = null;
+	this.stepFunctions.submitFormComplete = function(){
+		this.button = null;
 	};
-	sf.stepsFunctions.submitFormError = function(){
-		sf.button.button('reset');
+	this.stepFunctions.submitFormError = function(){
+		this.button.button('reset');
 	};
-	sf.stepsFunctions.submitFormSuccess = function(data){
-		sf.button.button('complete');
-		sf.currentStep++;
-		sf.steps.eq(sf.currentStep).find('[data-getdata]').each(function(){
-			var $layer = $(this);
-			var templateId = this.id + sf.settings.templateSufix;
-			$('#' + templateId).template(templateId);
-			
-			data = {
-				  'count': 10
-				, items: [
-					  {
-						  'id':1
-						, 'description': 'Vestibulum nisi sapien, laoreet vitae iaculis ut, facilisis at ante. Integer interdum laoreet est, id porta turpis dictum sed. Aenean.'
-						, 'url': 'http://placehold.it/90x90'
-					  }
-					, {
-						  'id':2
-						, 'description': 'Aliquam eu mi massa, eget luctus sem. In sollicitudin aliquam nisi sed dictum. Aenean lobortis faucibus libero eget mollis. Etiam.'
-						, 'url': 'http://placehold.it/90x90'
-					  }
-					, {
-						  'id':3
-						, 'description': 'Sed hendrerit tellus quis augue dictum lobortis. Donec mollis eleifend dui vel laoreet. Aliquam rhoncus malesuada rutrum. Mauris est ligula.'
-						, 'url': 'http://placehold.it/90x90'
-					  }
-					, {
-						  'id':4
-						, 'description': 'Cras id augue a leo convallis placerat. Proin ultricies lacinia tempus. Nullam facilisis tincidunt dui, nec blandit libero imperdiet vitae.'
-						, 'url': 'http://placehold.it/90x90'
-					  }
-					, {
-						  'id':5
-						, 'description': 'Suspendisse est lectus, mattis at aliquam ut, luctus porta dolor. Ut enim dui, aliquam eu scelerisque at, iaculis id arcu.'
-						, 'url': 'http://placehold.it/90x90'
-					  }
-					, {
-						  'id':6
-						, 'description': 'Fusce mattis lacus at purus lobortis a tempus turpis auctor. Donec iaculis feugiat tellus, eu dignissim libero pretium eu. Donec.'
-						, 'url': 'http://placehold.it/90x90'
-					  }
-					, {
-						  'id':7
-						, 'description': 'Etiam volutpat suscipit nunc, at eleifend nunc tincidunt at. Donec eget nisi id justo fringilla bibendum eu rutrum lectus. Cras.'
-						, 'url': 'http://placehold.it/90x90'
-					  }
-					, {
-						  'id':8
-						, 'description': 'Aenean vestibulum, turpis et sagittis euismod, sapien dolor elementum felis, a fringilla nibh mi non neque. Sed viverra velit sed.'
-						, 'url': 'http://placehold.it/90x90'
-					  }
-					, {
-						  'id':9
-						, 'description': 'Sed elit odio, molestie non condimentum non, eleifend a felis. Nam ut nibh hendrerit nulla vestibulum sollicitudin. Morbi commodo purus.'
-						, 'url': 'http://placehold.it/90x90'
-					  }
-				]
-			};
-			$.tmpl(templateId, data ).appendTo($layer);
-			
-			// $.ajax({
-			// 	  url: $layer.data('getdata')
-			// 	, dataType: 'json'
-			// 	, success: function(data, textStatus, jqXHR){
-			// 		$.tmpl(templateId, data ).appendTo($layer);
-			// 	},
-			// 	error: function(jqXHR, textStatus, errorThrown){
-			// 		sf.currentStep--;
-			// 		sf.showCurrentStep();
-			// 	}
-			// });
+	this.stepFunctions.submitFormSuccess = function(data){
+		this.button.button('complete');
+		this.currentStep++;
+		var $step = this.steps.eq(this.currentStep)
+		  , stepFunctions = $step[0].stepFunctions
+		  , myThis = this;
+		
+		var $getData = $step.find('[data-getdata]').each( function(index, element){
+			stepFunctions.getData.apply(myThis, arguments.callee.arguments);
 		});
-		sf.showCurrentStep();
+		this.showCurrentStep();
 	};
 	
-	sf.showCurrentStep = function(currentStep){
-		sf.currentStep = currentStep || sf.currentStep;
+	this.stepFunctions.getData = function(index, element){
+		var $layer = $(element)
+		  , templateId = element.id + this.settings.templateSufix
+		  , $step = this.steps.eq(this.currentStep)
+		  , stepFunctions = $step[0].stepFunctions
+		  , myThis = this;
+		$('#' + templateId).template(templateId);
+		$.ajax({
+			  url: $layer.data('getdata')
+			, dataType: 'json'
+			, success: function(data, textStatus, jqXHR){
+				$.tmpl(templateId, data ).appendTo($layer);
+				stepFunctions.afterSetStep.apply(myThis, [$step]);
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				this.currentStep--;
+				this.showCurrentStep();
+			}
+		});
+	};
+	this.stepFunctions.afterSetStep = function(){};
+	
+	
+	this.showCurrentStep = function(currentStep){
+		this.currentStep = currentStep || this.currentStep;
 		var step
-		  , steps = sf.steps.length;
+		  , steps = this.steps.length;
 		
 		for( step = 0; step < steps; step++)
 		{
-			if( step === sf.currentStep )
+			if( step === this.currentStep )
 			{
-				sf.showStep(step);
+				this.showStep(step);
 			}
 			else
 			{
-				sf.hideStep(step);
+				this.hideStep(step);
 			}
 		}
 	};
-	sf.showStep = function(step){
+	this.showStep = function(step){
 		if( typeof step === 'number')
 		{
-			sf.steps.eq(step).show();
+			this.steps.eq(step).show();
 		}
 	};
-	sf.hideStep = function(step){
+	this.hideStep = function(step){
 		if( typeof step === 'number')
 		{
-			sf.steps.eq(step).hide();
+			this.steps.eq(step).hide();
 		}
 	};
-	_init();
-	return sf;
+	_init.call(this);
+	return this;
 };
 
 var logoPollSettings = {};
-logoPollSettings.stepsFunctions = [];
-logoPollSettings.stepsFunctions[1] = {
-	validForm: function(){
-		var logosChecked = LogoPoll.steps.eq(LogoPoll.currentStep).find('[name="logo"]:checked');
+logoPollSettings.stepFunctions = [];
+logoPollSettings.stepFunctions[0] = {
+	validForm: function($form){
+		var $email = $form.find('#email');
+		this.email = $email.attr('value');
+		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		if(reg.test(this.email) === false) {
+			return 'Escribe un email válido';
+		}
+		return true;
+	}
+};
+logoPollSettings.stepFunctions[1] = {
+	validForm: function(form){
+		var logosChecked = $(form).find('[name="logo"]:checked');
 		switch( logosChecked.length )
 		{
 			case 0:
@@ -213,6 +202,71 @@ logoPollSettings.stepsFunctions[1] = {
 			default:
 				return 'Has seleccionado más de 3 logos';
 		}
+	}
+	, afterSetStep: function($step) {
+		var $form = $step.find('form');
+		$form.attr('action', $form.attr('action') + '/' + this.email );
+	}
+	, getData: function(index, element){
+		var $layer = $(element)
+		  , templateId = element.id + this.settings.templateSufix
+		  , $step = this.steps.eq(this.currentStep)
+		  , stepFunctions = $step[0].stepFunctions
+		  , myThis = this;
+		$('#' + templateId).template(templateId);
+		
+		data = {
+			  'count': 10
+			, items: [
+				  {
+					  'id':1
+					, 'description': 'Vestibulum nisi sapien, laoreet vitae iaculis ut, facilisis at ante. Integer interdum laoreet est, id porta turpis dictum sed. Aenean.'
+					, 'url': 'http://placehold.it/90x90'
+				  }
+				, {
+					  'id':2
+					, 'description': 'Aliquam eu mi massa, eget luctus sem. In sollicitudin aliquam nisi sed dictum. Aenean lobortis faucibus libero eget mollis. Etiam.'
+					, 'url': 'http://placehold.it/90x90'
+				  }
+				, {
+					  'id':3
+					, 'description': 'Sed hendrerit tellus quis augue dictum lobortis. Donec mollis eleifend dui vel laoreet. Aliquam rhoncus malesuada rutrum. Mauris est ligula.'
+					, 'url': 'http://placehold.it/90x90'
+				  }
+				, {
+					  'id':4
+					, 'description': 'Cras id augue a leo convallis placerat. Proin ultricies lacinia tempus. Nullam facilisis tincidunt dui, nec blandit libero imperdiet vitae.'
+					, 'url': 'http://placehold.it/90x90'
+				  }
+				, {
+					  'id':5
+					, 'description': 'Suspendisse est lectus, mattis at aliquam ut, luctus porta dolor. Ut enim dui, aliquam eu scelerisque at, iaculis id arcu.'
+					, 'url': 'http://placehold.it/90x90'
+				  }
+				, {
+					  'id':6
+					, 'description': 'Fusce mattis lacus at purus lobortis a tempus turpis auctor. Donec iaculis feugiat tellus, eu dignissim libero pretium eu. Donec.'
+					, 'url': 'http://placehold.it/90x90'
+				  }
+				, {
+					  'id':7
+					, 'description': 'Etiam volutpat suscipit nunc, at eleifend nunc tincidunt at. Donec eget nisi id justo fringilla bibendum eu rutrum lectus. Cras.'
+					, 'url': 'http://placehold.it/90x90'
+				  }
+				, {
+					  'id':8
+					, 'description': 'Aenean vestibulum, turpis et sagittis euismod, sapien dolor elementum felis, a fringilla nibh mi non neque. Sed viverra velit sed.'
+					, 'url': 'http://placehold.it/90x90'
+				  }
+				, {
+					  'id':9
+					, 'description': 'Sed elit odio, molestie non condimentum non, eleifend a felis. Nam ut nibh hendrerit nulla vestibulum sollicitudin. Morbi commodo purus.'
+					, 'url': 'http://placehold.it/90x90'
+				  }
+			]
+		};
+		$.tmpl(templateId, data ).appendTo($layer);
+		stepFunctions.afterSetStep.apply(this, [$step]);
 	}
 };
 
