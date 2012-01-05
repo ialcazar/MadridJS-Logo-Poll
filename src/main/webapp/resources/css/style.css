@@ -5,8 +5,10 @@
 div.close { float:none; }
 
 
-.media-grid label {
+.media-grid li {
   float: left;
+}
+.media-grid label {
   width:auto;
   padding: 4px;
   margin: 0 0 18px 20px;
@@ -41,5 +43,6 @@ div.close { float:none; }
 
 
 .media-grid input:checked+label {
+	border-color:#404040;
 	background:whiteSmoke;
 }

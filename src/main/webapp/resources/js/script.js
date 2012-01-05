@@ -58,7 +58,7 @@ var stepsForm = function(selector, options)
 	};
 	this.submitForm = function(event){
 		event.preventDefault();
-		var form = event.target
+		var form = event.currentTarget
 		  , $form = $(form)
 		  , form_action = form.action
 		  , form_method = form.method
@@ -71,6 +71,7 @@ var stepsForm = function(selector, options)
 			$.ajax({
 				  url: form_action
 				, type: form_method
+				, dataTypeString: 'json'
 				, data: $form.serialize()
 				, beforeSend: function(){
 					stepFunctions.submitFormBeforeSend.apply(myThis, arguments.callee.arguments);
@@ -114,10 +115,6 @@ var stepsForm = function(selector, options)
 		var $step = this.steps.eq(this.currentStep)
 		  , stepFunctions = $step[0].stepFunctions
 		  , myThis = this;
-		
-		var $getData = $step.find('[data-getdata]').each( function(index, element){
-			stepFunctions.getData.apply(myThis, arguments.callee.arguments);
-		});
 		this.showCurrentStep();
 	};
 	
@@ -147,12 +144,18 @@ var stepsForm = function(selector, options)
 	this.showCurrentStep = function(currentStep){
 		this.currentStep = currentStep || this.currentStep;
 		var step
-		  , steps = this.steps.length;
+		  , steps = this.steps.length
+		  , myThis = this;
 		
 		for( step = 0; step < steps; step++)
 		{
+			var $step = this.steps.eq(step)
+			  , stepFunctions = $step[0].stepFunctions
 			if( step === this.currentStep )
 			{
+				var $getData = $step.find('[data-getdata]').each( function(index, element){
+					stepFunctions.getData.apply(myThis, arguments.callee.arguments);
+				});
 				this.showStep(step);
 			}
 			else
