@@ -266,6 +266,7 @@ logoPollSettings.stepFunctions[1] = {
 			]
 		};
 		$.tmpl(templateId, data ).appendTo($layer);
+		$layer.find('img').twipsy();
 		stepFunctions.afterSetStep.apply(this, [$step]);
 	}
 };

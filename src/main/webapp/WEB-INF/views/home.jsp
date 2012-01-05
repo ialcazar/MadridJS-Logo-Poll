@@ -84,8 +84,7 @@
 		<li>
 			<input type="checkbox" name="logo" id="logo_\${id}" value="\${id}">
 			<label for="logo_\${id}">
-				<img class="thumbnail" src="\${url}" alt="\${description}"/>
-				<p>\${description}</p>
+				<img class="thumbnail" src="\${url}" alt="Proposición de logo \${id}" title="\${description}"/>
 			</label>
 		</li>
 	</script>
@@ -101,6 +100,7 @@
   <!-- BootStrap scripts -->
   <script defer src="resources/js/libs/bootstrap/bootstrap-alerts.js"></script>
   <script defer src="resources/js/libs/bootstrap/bootstrap-buttons.js"></script>
+  <script defer src="resources/js/libs/bootstrap/bootstrap-twipsy.js"></script>
 
   <!-- scripts concatenated and minified via build script -->
   <script defer src="resources/js/plugins.js"></script>
