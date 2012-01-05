@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -53,20 +54,10 @@ public class LogosController {
 		return "hey";
 	}
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Root home! the client locale is "+ locale.toString());
-		
-		
-		String msg = "Bienvenido a la encuesta para elegir el logo de MadridJS";
-		
-		model.addAttribute("msg", msg );
-		
-		return "home";
-	}
 	
 	@RequestMapping(value = "/logos", method = RequestMethod.GET)
-	public  String listAllLogos(Model model) {
+	@ResponseBody
+	public  LogosRest listAllLogos(Model model) {
 		logger.debug("Starting listAllLogos " );
 		
 		LogosRest items = null;
@@ -74,7 +65,7 @@ public class LogosController {
 		try{
 			
 			items = logosService.listAllRest();
-			model.addAttribute("logos",items);
+			
 			
 		}catch(Throwable e){
 			throw new GeneralErrorException(e);
@@ -83,7 +74,9 @@ public class LogosController {
 		if(items == null)
 			throw new ResourceNotFoundException("Recurso no encontrado");
 		
-		return "logos";
+
+		
+		return items;
 		
 	}
 	

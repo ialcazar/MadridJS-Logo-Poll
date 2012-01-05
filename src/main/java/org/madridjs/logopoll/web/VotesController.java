@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
@@ -35,7 +36,8 @@ public class VotesController {
 	
 	
 	@RequestMapping(value = "/votes", method = RequestMethod.GET)
-	public  String listAllVotes(Model model) {
+	@ResponseBody
+	public  VotesRest listAllVotes(Model model) {
 		logger.debug("Starting listAllVotes");
 		
 		
@@ -44,7 +46,7 @@ public class VotesController {
 		try{
 			
 			items = votesService.listAllRest();
-			model.addAttribute("votes",items);
+			
 			
 		}catch(Throwable e){
 			throw new GeneralErrorException(e);
@@ -53,7 +55,8 @@ public class VotesController {
 		if(items == null)
 			throw new ResourceNotFoundException("Recurso no encontrado");
 		
-		return "votes";
+		
+		return items;
 		
 	}
 	
