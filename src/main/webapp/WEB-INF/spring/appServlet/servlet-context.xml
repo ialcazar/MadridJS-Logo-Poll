@@ -17,8 +17,6 @@
 	<resources mapping="/resources/**" location="/resources/" />
 
 	<context:component-scan base-package="org.madridjs" />
-	
-	<view-controller path="/" view-name="home"/>
 
 	
 </beans:beans>
