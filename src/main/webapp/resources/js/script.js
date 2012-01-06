@@ -5,6 +5,7 @@ var stepsForm = function(selector, options)
 	this.$DOMscope =  $(selector);
 	this.settings = {
 		  stepsSelector: '.step'
+		, currentStep: 0
 		, messagesSelector: '#messages'
 		, errorId: 'error'
 		, errorTimeout: 5 //seconds
@@ -16,7 +17,7 @@ var stepsForm = function(selector, options)
 	
 	var _init = function(){
 		this.steps = this.$DOMscope.find(this.settings.stepsSelector);
-		this.currentStep = 0;
+		this.currentStep = this.settings.currentStep;
 		_setErrorLayer.call(this);
 		_setSteps.call(this);
 		this.showCurrentStep();
