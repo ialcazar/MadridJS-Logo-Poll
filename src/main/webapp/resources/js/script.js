@@ -198,8 +198,8 @@ logoPollSettings.stepFunctions[0] = {
 };
 logoPollSettings.stepFunctions[1] = {
 	validForm: function(form){
-		var logosChecked = $(form).find('[name="logo"]:checked');
-		switch( logosChecked.length )
+		var votesChecked = $(form).find('[name="votes"]:checked');
+		switch( votesChecked.length )
 		{
 			case 0:
 				return 'No has seleccionado ningún logo';

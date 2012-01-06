@@ -82,7 +82,7 @@
 
 	<script id="logoItemTmpl" type="text/x-jquery-tmpl">
 		<li>
-			<input type="checkbox" name="logo" id="logo_\${id}" value="\${id}">
+			<input type="checkbox" name="votes" id="logo_\${id}" value="\${id}">
 			<label for="logo_\${id}">
 				<img class="thumbnail" src="\${url}" alt="Proposición de logo \${id}" title="\${description}" height="\${height}" width="210"/>
 			</label>
