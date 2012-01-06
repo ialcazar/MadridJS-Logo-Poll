@@ -181,7 +181,9 @@ var stepsForm = function(selector, options)
 	return this;
 };
 
-var logoPollSettings = {};
+var logoPollSettings = {
+	currentStep: 0
+};
 logoPollSettings.stepFunctions = [];
 logoPollSettings.stepFunctions[0] = {
 	validForm: function($form){
@@ -225,51 +227,74 @@ logoPollSettings.stepFunctions[1] = {
 				  {
 					  'id':1
 					, 'description': 'Vestibulum nisi sapien, laoreet vitae iaculis ut, facilisis at ante. Integer interdum laoreet est, id porta turpis dictum sed. Aenean.'
-					, 'url': 'http://placehold.it/90x90'
+					, 'url': 'http://placehold.it/210x150'
+					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
 				  }
 				, {
 					  'id':2
 					, 'description': 'Aliquam eu mi massa, eget luctus sem. In sollicitudin aliquam nisi sed dictum. Aenean lobortis faucibus libero eget mollis. Etiam.'
-					, 'url': 'http://placehold.it/90x90'
+					, 'url': 'http://placehold.it/210x150'
+					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
 				  }
 				, {
 					  'id':3
 					, 'description': 'Sed hendrerit tellus quis augue dictum lobortis. Donec mollis eleifend dui vel laoreet. Aliquam rhoncus malesuada rutrum. Mauris est ligula.'
-					, 'url': 'http://placehold.it/90x90'
+					, 'url': 'http://placehold.it/210x150'
+					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
 				  }
 				, {
 					  'id':4
 					, 'description': 'Cras id augue a leo convallis placerat. Proin ultricies lacinia tempus. Nullam facilisis tincidunt dui, nec blandit libero imperdiet vitae.'
-					, 'url': 'http://placehold.it/90x90'
+					, 'url': 'http://placehold.it/210x150'
+					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
 				  }
 				, {
 					  'id':5
 					, 'description': 'Suspendisse est lectus, mattis at aliquam ut, luctus porta dolor. Ut enim dui, aliquam eu scelerisque at, iaculis id arcu.'
-					, 'url': 'http://placehold.it/90x90'
+					, 'url': 'http://placehold.it/210x150'
+					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
 				  }
 				, {
 					  'id':6
 					, 'description': 'Fusce mattis lacus at purus lobortis a tempus turpis auctor. Donec iaculis feugiat tellus, eu dignissim libero pretium eu. Donec.'
-					, 'url': 'http://placehold.it/90x90'
+					, 'url': 'http://placehold.it/210x150'
+					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
 				  }
 				, {
 					  'id':7
 					, 'description': 'Etiam volutpat suscipit nunc, at eleifend nunc tincidunt at. Donec eget nisi id justo fringilla bibendum eu rutrum lectus. Cras.'
-					, 'url': 'http://placehold.it/90x90'
+					, 'url': 'http://placehold.it/210x150'
+					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
 				  }
 				, {
 					  'id':8
 					, 'description': 'Aenean vestibulum, turpis et sagittis euismod, sapien dolor elementum felis, a fringilla nibh mi non neque. Sed viverra velit sed.'
-					, 'url': 'http://placehold.it/90x90'
+					, 'url': 'http://placehold.it/210x150'
+					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
 				  }
 				, {
 					  'id':9
 					, 'description': 'Sed elit odio, molestie non condimentum non, eleifend a felis. Nam ut nibh hendrerit nulla vestibulum sollicitudin. Morbi commodo purus.'
-					, 'url': 'http://placehold.it/90x90'
+					, 'url': 'http://placehold.it/210x150'
+					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
+				  }
+				, {
+					  'id':10
+					, 'description': 'Etiam volutpat suscipit nunc, at eleifend nunc tincidunt at. Donec eget nisi id justo fringilla bibendum eu rutrum lectus. Cras.'
+					, 'url': 'http://placehold.it/210x150'
+					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
 				  }
 			]
 		};
 		$.tmpl(templateId, data ).appendTo($layer);
+		$mediaGrid = $layer.find('.media-grid');
+		$mediaGrid.imagesLoaded(function(){
+			$mediaGrid.masonry({
+				// options
+				itemSelector : 'li',
+				columnWidth : 240
+			});
+		});
 		$layer.find('img').twipsy();
 		stepFunctions.afterSetStep.apply(this, [$step]);
 	}

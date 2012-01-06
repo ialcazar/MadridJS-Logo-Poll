@@ -84,7 +84,7 @@
 		<li>
 			<input type="checkbox" name="logo" id="logo_\${id}" value="\${id}">
 			<label for="logo_\${id}">
-				<img class="thumbnail" src="\${url}" alt="Proposición de logo \${id}" title="\${description}"/>
+				<img class="thumbnail" src="\${url}" alt="Proposición de logo \${id}" title="\${description}" height="\${height}" width="210"/>
 			</label>
 		</li>
 	</script>
@@ -96,6 +96,7 @@
 
   <!-- Jquery templates -->
   <script defer src="resources/js/libs/jquery/jquery.tmpl.min.js"></script>
+  <script defer src="resources/js/libs/jquery/jquery.masonry.min.js"></script>
 
   <!-- BootStrap scripts -->
   <script defer src="resources/js/libs/bootstrap/bootstrap-alerts.js"></script>
