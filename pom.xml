@@ -10,6 +10,7 @@
 	<properties>
 		<java-version>1.6</java-version>
 		<org.springframework-version>3.0.6.RELEASE</org.springframework-version>
+		<hibernate.version>3.5.4-Final</hibernate.version>
 		<org.aspectj-version>1.6.9</org.aspectj-version>
 		<org.slf4j-version>1.5.10</org.slf4j-version>
 	</properties>
@@ -159,6 +160,31 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 		</dependency>
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>8.4-702.jdbc3</version>
+		</dependency>
+		
+		<!-- PERSISTENCE -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.0.1.RELEASE</version>
+			</dependency>
+			
+			<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>1.0.0.Final</version>
+			</dependency>
+			
+			<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+			
 	</dependencies>
 	<build>
 		<plugins>
