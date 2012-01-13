@@ -18,6 +18,12 @@ var stepsForm = function(selector, options)
 	var _init = function(){
 		this.steps = this.$DOMscope.find(this.settings.stepsSelector);
 		this.currentStep = this.settings.currentStep;
+		$.ajaxSetup({
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "application/json"
+			}
+		});
 		_setErrorLayer.call(this);
 		_setSteps.call(this);
 		this.showCurrentStep();
@@ -151,7 +157,7 @@ var stepsForm = function(selector, options)
 		for( step = 0; step < steps; step++)
 		{
 			var $step = this.steps.eq(step)
-			  , stepFunctions = $step[0].stepFunctions
+			  , stepFunctions = $step[0].stepFunctions;
 			if( step === this.currentStep )
 			{
 				var $getData = $step.find('[data-getdata]').each( function(index, element){
