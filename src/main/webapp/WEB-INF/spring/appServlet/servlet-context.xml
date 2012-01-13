@@ -16,7 +16,7 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
-	<context:component-scan base-package="org.madridjs" />
+	<context:component-scan base-package="org.madridjs.logopoll" />
 	
 	<view-controller path="/" view-name="home"/>
 
