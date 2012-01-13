@@ -79,7 +79,7 @@ var stepsForm = function(selector, options)
 				  url: form_action
 				, type: form_method
 				, dataTypeString: 'json'
-				, data: $form.serializeObject()
+				, data: JSON.stringify($form.serializeObject())
 				, beforeSend: function(){
 					stepFunctions.submitFormBeforeSend.apply(myThis, arguments.callee.arguments);
 				}
