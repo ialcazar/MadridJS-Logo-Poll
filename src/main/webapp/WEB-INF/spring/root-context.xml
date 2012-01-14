@@ -10,28 +10,19 @@
 	<context:property-placeholder location="classpath:spring/database.properties"/>
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	
 	<bean
-		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-		<property name="order" value="1" />
-		<property name="mediaTypes">
-			<map>
-				<entry key="json" value="application/json" />
-				<entry key="xml" value="application/xml" />
-			</map>
-		</property>
-		<property name="defaultViews">
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
 			<list>
-				<bean
-					class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
-				<bean class="org.springframework.web.servlet.view.xml.MarshallingView">
-					<constructor-arg>
-						<bean class="org.springframework.oxm.xstream.XStreamMarshaller" />
-					</constructor-arg>
-				</bean>
+				<ref bean="jsonConverter" />
 			</list>
 		</property>
-<!-- 		<property name="ignoreAcceptHeader" value="true" /> -->
 	</bean>
+
+	<bean id="jsonConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+		
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
   		<property name="order" value="2" />
  		<property name="prefix" value="/WEB-INF/views/"/>
