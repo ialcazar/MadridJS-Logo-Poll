@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
-import org.madridjs.logopoll.exceptions.EmailExistsException;
+import org.madridjs.logopoll.exceptions.EmailException;
 import org.madridjs.logopoll.exceptions.GeneralErrorException;
 import org.madridjs.logopoll.rest.UserRest;
 import org.madridjs.logopoll.services.LoginService;
@@ -34,7 +34,7 @@ public class LoginControllerUnitTests {
 		LoginService 	loginService 	= mock(LoginService.class);
 		LoginController loginController = new LoginController(loginService);
 		
-		doThrow(new EmailExistsException()).when(loginService).login(userRest);  
+		doThrow(new EmailException()).when(loginService).login(userRest);  
 		
 		
 		try{

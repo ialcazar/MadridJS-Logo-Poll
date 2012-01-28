@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
-import org.madridjs.logopoll.exceptions.EmailExistsException;
+
 import org.madridjs.logopoll.exceptions.GeneralErrorException;
 import org.madridjs.logopoll.exceptions.ResourceNotFoundException;
 import org.madridjs.logopoll.rest.LogosRest;
