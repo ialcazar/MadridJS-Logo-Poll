@@ -232,64 +232,102 @@ logoPollSettings.stepFunctions[1] = {
 			, items: [
 				  {
 					  'id':1
-					, 'description': 'Vestibulum nisi sapien, laoreet vitae iaculis ut, facilisis at ante. Integer interdum laoreet est, id porta turpis dictum sed. Aenean.'
-					, 'url': 'http://placehold.it/210x150'
-					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
+					, 'description': 'Logo 1'
+					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/1.png'
+					
 				  }
 				, {
 					  'id':2
-					, 'description': 'Aliquam eu mi massa, eget luctus sem. In sollicitudin aliquam nisi sed dictum. Aenean lobortis faucibus libero eget mollis. Etiam.'
-					, 'url': 'http://placehold.it/210x150'
-					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
+					, 'description': 'Logo 2'
+					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/2.png'
 				  }
 				, {
 					  'id':3
-					, 'description': 'Sed hendrerit tellus quis augue dictum lobortis. Donec mollis eleifend dui vel laoreet. Aliquam rhoncus malesuada rutrum. Mauris est ligula.'
-					, 'url': 'http://placehold.it/210x150'
-					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
+					, 'description': 'Logo 3'
+					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/3.png'
 				  }
 				, {
 					  'id':4
-					, 'description': 'Cras id augue a leo convallis placerat. Proin ultricies lacinia tempus. Nullam facilisis tincidunt dui, nec blandit libero imperdiet vitae.'
-					, 'url': 'http://placehold.it/210x150'
-					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
+					, 'description': 'Logo 4'
+					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/4.png'
+					
 				  }
 				, {
 					  'id':5
-					, 'description': 'Suspendisse est lectus, mattis at aliquam ut, luctus porta dolor. Ut enim dui, aliquam eu scelerisque at, iaculis id arcu.'
-					, 'url': 'http://placehold.it/210x150'
-					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
+					, 'description': 'Logo 5'
+					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/5.png'
 				  }
 				, {
 					  'id':6
-					, 'description': 'Fusce mattis lacus at purus lobortis a tempus turpis auctor. Donec iaculis feugiat tellus, eu dignissim libero pretium eu. Donec.'
-					, 'url': 'http://placehold.it/210x150'
-					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
+					, 'description': 'Logo 6'
+					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/6.png'
+					
 				  }
 				, {
 					  'id':7
-					, 'description': 'Etiam volutpat suscipit nunc, at eleifend nunc tincidunt at. Donec eget nisi id justo fringilla bibendum eu rutrum lectus. Cras.'
-					, 'url': 'http://placehold.it/210x150'
-					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
+					, 'description': 'Logo 7'
+					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/7.png'
 				  }
 				, {
 					  'id':8
-					, 'description': 'Aenean vestibulum, turpis et sagittis euismod, sapien dolor elementum felis, a fringilla nibh mi non neque. Sed viverra velit sed.'
-					, 'url': 'http://placehold.it/210x150'
-					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
+					, 'description': 'Logo 8'
+					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/8.png'
 				  }
 				, {
 					  'id':9
-					, 'description': 'Sed elit odio, molestie non condimentum non, eleifend a felis. Nam ut nibh hendrerit nulla vestibulum sollicitudin. Morbi commodo purus.'
-					, 'url': 'http://placehold.it/210x150'
-					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
-				  }
+						, 'description': 'Logo 9'
+						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/9.png'
+					  }
 				, {
 					  'id':10
-					, 'description': 'Etiam volutpat suscipit nunc, at eleifend nunc tincidunt at. Donec eget nisi id justo fringilla bibendum eu rutrum lectus. Cras.'
-					, 'url': 'http://placehold.it/210x150'
-					, 'height': Math.round( Math.random() * (210 - 50 + 1) ) + 50
-				  }
+						, 'description': 'Logo 10'
+						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/10.png'
+					  }
+				,{
+					  'id':11
+						, 'description': 'Logo 11'
+						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/11.png'
+					  }
+				,{
+					  'id':12
+						, 'description': 'Logo 12'
+						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/12.png'
+					  }
+				,{
+					  'id':13
+						, 'description': 'Logo 13'
+						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/13.png'
+					  }
+				,{
+					  'id':14
+						, 'description': 'Logo 14'
+						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/14.png'
+					  }
+				,{
+					  'id':15
+						, 'description': 'Logo 15'
+						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/15.png'
+					  }
+				,{
+					  'id':16
+						, 'description': 'Logo 16'
+						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/16.png'
+					  }
+				,{
+					  'id':17
+						, 'description': 'Logo 17'
+						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/17.png'
+					  },
+					  {
+						  'id':18
+							, 'description': 'Logo 18'
+							, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/18.png'
+						  }
+				,{
+					  'id':19
+						, 'description': 'Logo 19'
+						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/19.png'
+					  }
 			]
 		};
 		$.tmpl(templateId, data ).appendTo($layer);

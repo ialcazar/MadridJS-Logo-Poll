@@ -84,7 +84,7 @@
 		<li>
 			<input type="checkbox" name="votes" id="logo_\${id}" value="\${id}">
 			<label for="logo_\${id}">
-				<img class="thumbnail" src="\${url}" alt="ProposiciÃ³n de logo \${id}" title="\${description}" height="\${height}" width="210"/>
+				<img class="thumbnail" src="\${url}" alt="Proposición de logo \${id}" title="\${description}" height="\${height}" width="210"/>
 			</label>
 		</li>
 	</script>

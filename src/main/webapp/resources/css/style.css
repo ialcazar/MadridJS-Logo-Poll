@@ -44,5 +44,5 @@ div.close { float:none; }
 
 .media-grid input:checked+label {
 	border-color:#404040;
-	background:whiteSmoke;
+	background:green;
 }
