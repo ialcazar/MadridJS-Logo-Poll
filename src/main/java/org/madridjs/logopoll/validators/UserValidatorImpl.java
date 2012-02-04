@@ -5,7 +5,9 @@ import java.util.regex.Pattern;
 
 import org.madridjs.logopoll.exceptions.EmailException;
 import org.madridjs.logopoll.rest.UserRest;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserValidatorImpl implements UserValidator {
 	
 	private Pattern pattern;

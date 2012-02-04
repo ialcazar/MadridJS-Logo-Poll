@@ -3,8 +3,11 @@ package org.madridjs.logopoll.services;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.Test;
-import org.madridjs.logopoll.daos.UsersDao;
+import org.madridjs.logopoll.daos.UserRepository;
 import org.madridjs.logopoll.dto.UserDto;
 import org.madridjs.logopoll.exceptions.EmailException;
 
@@ -17,9 +20,9 @@ public class LoginServiceUnitTests {
 
 	@Test
 	public void login_a_user_when_mail_is_correct_and_doesnt_exist() {
-		String email = "israel@gmail.com";
+		String email = "israelis@gmail.com";
 		UserRest userRest = new UserRest(email,email);
-		UsersDao usersDao = mock(UsersDao.class);
+		UserRepository usersDao = mock(UserRepository.class);
 		UserValidator userValidator = mock(UserValidator.class);
 		
 		
@@ -30,7 +33,7 @@ public class LoginServiceUnitTests {
 		
 		
 		verify(userValidator).validate(userRest);
-		verify(usersDao).findOne(userRest.getEmail());
+		verify(usersDao).findByEmail(userRest.getEmail());
 		
 	}
 	
@@ -40,7 +43,7 @@ public class LoginServiceUnitTests {
 		UserRest userRest = new UserRest(email,email);
 		
 		UserValidator userValidator = mock(UserValidator.class);
-		UsersDao usersDao = mock(UsersDao.class);
+		UserRepository usersDao = mock(UserRepository.class);
 		
 		doThrow(new EmailException("Email is not valid")).when(userValidator).validate(userRest);
 		
@@ -62,12 +65,14 @@ public class LoginServiceUnitTests {
 		
 		String email = "israel@gmail.com";
 		UserRest userRest = new UserRest(email,email);
-		UserDto  userDto = new UserDto();
+		List<UserDto>  usersDto = new LinkedList<UserDto>();
+		UserDto userDto = new UserDto(email,email,email);
+		usersDto.add(userDto);
 		
 		UserValidator userValidator = mock(UserValidator.class);
-		UsersDao usersDao = mock(UsersDao.class);
+		UserRepository usersDao = mock(UserRepository.class);
 		
-		when(usersDao.findOne(userRest.getEmail())).thenReturn(userDto);
+		when(usersDao.findByEmail(userRest.getEmail())).thenReturn(usersDto);
 		
 		LoginService loginService = new LoginServiceImpl(userValidator,usersDao);
 		
@@ -80,7 +85,7 @@ public class LoginServiceUnitTests {
 		
 		
 		verify(userValidator).validate(userRest);
-		verify(usersDao).findOne(userRest.getEmail());
+		verify(usersDao).findByEmail(userRest.getEmail());
 		
 		
 		

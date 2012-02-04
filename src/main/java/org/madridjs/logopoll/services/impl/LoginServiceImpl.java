@@ -1,6 +1,10 @@
 package org.madridjs.logopoll.services.impl;
 
-import org.madridjs.logopoll.daos.UsersDao;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.madridjs.logopoll.daos.UserRepository;
 import org.madridjs.logopoll.dto.UserDto;
 import org.madridjs.logopoll.exceptions.EmailException;
 
@@ -9,14 +13,17 @@ import org.madridjs.logopoll.services.LoginService;
 import org.madridjs.logopoll.validators.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
+@Service
 public class LoginServiceImpl implements LoginService {
 	private static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
 	
 	private UserValidator userValidator;
-	private UsersDao	  usersDao;
+	private UserRepository	  usersDao;
 	
-	public LoginServiceImpl(UserValidator userValidator, UsersDao usersDao) {
+	@Inject
+	public LoginServiceImpl(UserValidator userValidator, UserRepository usersDao) {
 		this.userValidator = userValidator;
 		this.usersDao = usersDao;
 	}
@@ -27,8 +34,8 @@ public class LoginServiceImpl implements LoginService {
 		logger.info("Starting login");
 		userValidator.validate(userRest);
 		
-		UserDto userDto = usersDao.findOne(userRest.getEmail()); 
-		if(userDto != null)
+		List<UserDto> usersDto = usersDao.findByEmail(userRest.getEmail()); 
+		if(usersDto != null && usersDto.size()>0)
 			throw new EmailException("Email "+userRest.getEmail()+" exists");
 
 	}

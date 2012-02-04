@@ -27,7 +27,7 @@
         areas, such as @PersistenceContext injection into entities.
     -->
     <context:spring-configured/>
-    <jpa:repositories base-package="org.madridjs.logopoll.repositories"></jpa:repositories>
+    <jpa:repositories base-package="org.madridjs.logopoll.daos"></jpa:repositories>
     
     <bean class="java.net.URI" id="dbUrl">
         <constructor-arg value="${DATABASE_URL}"/>
