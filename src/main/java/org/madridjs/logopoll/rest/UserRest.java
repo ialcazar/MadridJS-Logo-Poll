@@ -26,6 +26,10 @@ public class UserRest extends RestEntity implements Serializable {
 
 	
 
+	public UserRest(String email) {
+		this.email = email;
+	}
+
 	public String getEmail() {
 		return email;
 	}

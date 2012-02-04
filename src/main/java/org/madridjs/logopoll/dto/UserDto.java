@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 @Entity
 @Table(name="USERS")
 public class UserDto {
@@ -13,24 +15,35 @@ public class UserDto {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String email;
-	private String name;
-	private String surname;
+	
 	
 	public UserDto() {
 		super();
 		
 	}
 
-	public UserDto(String email, String name, String surname) {
-		super();
+	
+
+	public UserDto(String email) {
 		this.email = email;
-		this.name = name;
-		this.surname = surname;
+	}
+
+	public UserDto(Long id, String email) {
+		this.id = id;
+		this.email = email;
 	}
 
 	public String getEmail() {
-		// TODO Auto-generated method stub
 		return this.email;
+	}
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public Long getId() {
+		
+		return this.id;
 	}
 	
 	

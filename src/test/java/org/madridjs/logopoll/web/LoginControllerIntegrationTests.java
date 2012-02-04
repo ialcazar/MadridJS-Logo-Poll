@@ -2,6 +2,8 @@ package org.madridjs.logopoll.web;
 
 
 
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import javax.inject.Inject;
@@ -23,15 +25,19 @@ public class LoginControllerIntegrationTests {
 	
 	@Test
 	public void given_an_email_when_login_then_email_not_exists() {
-		UserRest userRest = new UserRest("1","israelin@gmail.com");
+		UserRest userRest = new UserRest("israelito@gmail.com");
 		
-		loginController.login(userRest);
+		UserRest newUserRest = loginController.login(userRest);
+		
+		assertNotNull(newUserRest);
+		assertNotNull(newUserRest.getId());
+		assertTrue(newUserRest.getId().equals("1"));
 	
 	}
 	
 	@Test
 	public void given_an_email_when_login_then_email_exists() {
-		UserRest userRest = new UserRest("1","israel@gmail.com");
+		UserRest userRest = new UserRest("israel1@gmail.com");
 		
 		try{
 			loginController.login(userRest);

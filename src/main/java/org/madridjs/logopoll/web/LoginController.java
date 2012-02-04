@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
@@ -25,14 +26,17 @@ public class LoginController {
 	}
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public void login(@RequestBody UserRest user) {
+	public @ResponseBody UserRest login(@RequestBody UserRest user) {
+		UserRest newUserRest = null;
 		logger.info("Starting login process for user("+user+")");
 		try{
-			loginService.login(user);
+			newUserRest = loginService.login(user);
 		
 		}catch(Throwable e){
 			throw new GeneralErrorException(e);
 		}
+		
+		return newUserRest;
 	}
 
 }

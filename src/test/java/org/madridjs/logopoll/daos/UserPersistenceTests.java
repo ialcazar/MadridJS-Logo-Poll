@@ -36,7 +36,7 @@ public class UserPersistenceTests {
 	@Test
 	public void getUserByEmailWhenCustomerExists(){
 
-		List<UserDto> users = userRepository.findByEmail("israel@gmail.com");
+		List<UserDto> users = userRepository.findByEmail("israel1@gmail.com");
 		
 		assertNotNull(users);
 		assertTrue(users.size()==1);

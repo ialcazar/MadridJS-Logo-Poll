@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.madridjs.logopoll.converters.UserConverter;
 import org.madridjs.logopoll.daos.UserRepository;
 import org.madridjs.logopoll.dto.UserDto;
 import org.madridjs.logopoll.exceptions.EmailException;
@@ -21,22 +22,31 @@ public class LoginServiceImpl implements LoginService {
 	
 	private UserValidator userValidator;
 	private UserRepository	  usersDao;
+	private UserConverter	userConverter;
 	
 	@Inject
-	public LoginServiceImpl(UserValidator userValidator, UserRepository usersDao) {
+	public LoginServiceImpl(UserValidator userValidator, UserConverter userConverter, UserRepository usersDao) {
 		this.userValidator = userValidator;
+		this.userConverter = userConverter;
 		this.usersDao = usersDao;
 	}
 
 	
 
-	public void login(UserRest userRest) throws EmailException{
+	public UserRest login(UserRest userRest) throws EmailException{
 		logger.info("Starting login");
 		userValidator.validate(userRest);
 		
 		List<UserDto> usersDto = usersDao.findByEmail(userRest.getEmail()); 
 		if(usersDto != null && usersDto.size()>0)
 			throw new EmailException("Email "+userRest.getEmail()+" exists");
+		
+		UserDto userDto = userConverter.toDto(userRest);
+		UserDto newUserDto = usersDao.save(userDto);
+		
+		UserRest newUserRest = userConverter.toRest(newUserDto);
+		
+		return newUserRest;
 
 	}
 

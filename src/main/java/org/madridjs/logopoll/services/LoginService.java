@@ -6,6 +6,6 @@ import org.madridjs.logopoll.rest.UserRest;
 
 public interface LoginService {
 
-	void login(UserRest userRest) throws EmailException;
+	UserRest login(UserRest userRest) throws EmailException;
 
 }
