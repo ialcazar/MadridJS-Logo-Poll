@@ -50,7 +50,7 @@ var stepsForm = function(selector, options)
 		for( step = 0; step < steps; step++)
 		{
 			var $step = this.steps.eq(step);
-			$step[0].stepFunctions = $.extend(true, {}, this.stepFunctions, this.settings.stepFunctions[step]);
+			$step.get(0).stepFunctions = $.extend(true, {}, this.stepFunctions, this.settings.stepFunctions[step]);
 			$step.find('form').bind('submit', function(event){
 				myThis.submitForm(event);
 			});
@@ -75,22 +75,23 @@ var stepsForm = function(selector, options)
 		if( validForm === true )
 		{
 			this.button = $form.find('[type="submit"]').button();
+			//stepFunctions.submitFormSuccess.apply(myThis, [{"id":"1","email":"israelalcazar@gmail.com"}]);
 			$.ajax({
 				  url: form_action
 				, type: form_method
 				, dataTypeString: 'json'
 				, data: JSON.stringify($form.serializeObject())
 				, beforeSend: function(){
-					stepFunctions.submitFormBeforeSend.apply(myThis, arguments.callee.arguments);
+					stepFunctions.submitFormBeforeSend.apply(myThis, toArray(arguments));
 				}
 				, success: function(){
-					stepFunctions.submitFormSuccess.apply(myThis, arguments.callee.arguments);
+					stepFunctions.submitFormSuccess.apply(myThis, toArray(arguments));
 				}
 				, error: function(){
-					stepFunctions.submitFormError.apply(myThis, arguments.callee.arguments);
+					stepFunctions.submitFormError.apply(myThis, toArray(arguments));
 				}
 				, complete: function(){
-					stepFunctions.submitFormComplete.apply(myThis, arguments.callee.arguments);
+					stepFunctions.submitFormComplete.apply(myThis, toArray(arguments));
 				}
 			});
 		}
@@ -161,7 +162,7 @@ var stepsForm = function(selector, options)
 			if( step === this.currentStep )
 			{
 				var $getData = $step.find('[data-getdata]').each( function(index, element){
-					stepFunctions.getData.apply(myThis, arguments.callee.arguments);
+					stepFunctions.getData.apply(myThis, toArray(arguments));
 				});
 				this.showStep(step);
 			}
@@ -194,12 +195,16 @@ logoPollSettings.stepFunctions = [];
 logoPollSettings.stepFunctions[0] = {
 	validForm: function($form){
 		var $email = $form.find('#email');
-		this.email = $email.attr('value');
 		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-		if(reg.test(this.email) === false) {
+		if(reg.test($email.val()) === false) {
 			return 'Escribe un email válido';
 		}
 		return true;
+	}
+	, submitFormSuccess: function(data){
+		var $form = $(this.steps[this.currentStep+1]).find('form');
+		$form.attr('action', $form.attr('action') + '/' + data.id );
+		this.stepFunctions.submitFormSuccess.apply(this, toArray(arguments));
 	}
 };
 logoPollSettings.stepFunctions[1] = {
@@ -215,10 +220,6 @@ logoPollSettings.stepFunctions[1] = {
 				return 'Has seleccionado más de 3 logos';
 		}
 	}
-	, afterSetStep: function($step) {
-		var $form = $step.find('form');
-		$form.attr('action', $form.attr('action') + '/' + this.email );
-	}
 	, getData: function(index, element){
 		var $layer = $(element)
 		  , templateId = element.id + this.settings.templateSufix
@@ -228,8 +229,7 @@ logoPollSettings.stepFunctions[1] = {
 		$('#' + templateId).template(templateId);
 		
 		data = {
-			  'count': 10
-			, items: [
+			items: [
 				  {
 					  'id':1
 					, 'description': 'Logo 1'
@@ -330,6 +330,7 @@ logoPollSettings.stepFunctions[1] = {
 					  }
 			]
 		};
+		data.count = data.items.length;
 		$.tmpl(templateId, data ).appendTo($layer);
 		$mediaGrid = $layer.find('.media-grid');
 		$mediaGrid.imagesLoaded(function(){
@@ -343,5 +344,7 @@ logoPollSettings.stepFunctions[1] = {
 		stepFunctions.afterSetStep.apply(this, [$step]);
 	}
 };
-
+var toArray = function(obj) {
+    return Array.prototype.slice.call(obj, 0);
+};
 window.LogoPoll = new stepsForm('body', logoPollSettings);
