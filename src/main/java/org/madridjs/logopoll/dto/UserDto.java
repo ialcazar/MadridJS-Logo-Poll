@@ -15,6 +15,7 @@ public class UserDto {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String email;
+	private VoteDto vote;
 	
 	
 	public UserDto() {
@@ -32,6 +33,8 @@ public class UserDto {
 		this.id = id;
 		this.email = email;
 	}
+	
+	
 
 	public String getEmail() {
 		return this.email;
@@ -44,6 +47,13 @@ public class UserDto {
 	public Long getId() {
 		
 		return this.id;
+	}
+
+
+
+	public void addVote(VoteDto voteDto) {
+		this.vote = voteDto;
+		
 	}
 	
 	
