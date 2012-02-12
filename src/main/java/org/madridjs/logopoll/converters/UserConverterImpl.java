@@ -25,8 +25,8 @@ public class UserConverterImpl implements UserConverter {
 		
 		if(userDto == null)
 			throw new IllegalArgumentException("Expected param userDto");
-		if(userDto.getId() != null)
-			id = userDto.getId().toString();
+		if(userDto.getUserId() != null)
+			id = userDto.getUserId().toString();
 		if(userDto.getEmail() != null)
 			email = userDto.getEmail();
 			

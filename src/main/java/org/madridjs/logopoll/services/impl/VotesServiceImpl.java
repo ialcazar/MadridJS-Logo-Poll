@@ -2,24 +2,33 @@ package org.madridjs.logopoll.services.impl;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.mail.MethodNotSupportedException;
+
 import org.madridjs.logopoll.daos.UserRepository;
 import org.madridjs.logopoll.daos.VoteRepository;
 import org.madridjs.logopoll.dto.UserDto;
 import org.madridjs.logopoll.dto.VoteDto;
 import org.madridjs.logopoll.rest.VotesRest;
 import org.madridjs.logopoll.services.VotesService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service
+@Transactional
 public class VotesServiceImpl implements VotesService {
 	private VoteRepository votesDao;
 	private UserRepository usersDao;
 	
+	@Inject
 	public VotesServiceImpl(VoteRepository votesDao, UserRepository usersDao) {
 		this.votesDao = votesDao;
 		this.usersDao = usersDao;
 	}
 
-	public VotesRest listAllRest() {
-		// TODO Auto-generated method stub
+	public VotesRest listAllRest() throws MethodNotSupportedException {
+		if(true)
+			throw new MethodNotSupportedException("Method not supported");
 		return null;
 	}
 
