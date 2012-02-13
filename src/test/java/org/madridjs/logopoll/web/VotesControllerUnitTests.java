@@ -4,6 +4,9 @@ package org.madridjs.logopoll.web;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Test;
 
 import org.madridjs.logopoll.exceptions.GeneralErrorException;
@@ -17,6 +20,20 @@ import org.springframework.ui.Model;
 
 
 public class VotesControllerUnitTests {
+	private final static Long USER_ID = 1l;
+	
+	@Test
+	public void user_votes_some_logos(){
+		List<Long> votes = Arrays.asList(1l,2l,3l);
+		VotesRest myVotes = new VotesRest();
+		VotesService votesService = mock(VotesService.class);
+		
+		VotesController votesController = new VotesController(votesService);
+		
+		votesController.vote(USER_ID,myVotes);
+		
+		verify(votesService).vote(USER_ID,votes);
+	}
 
 //	@Test
 //	public void list_all_votes_exists_some_logos() {

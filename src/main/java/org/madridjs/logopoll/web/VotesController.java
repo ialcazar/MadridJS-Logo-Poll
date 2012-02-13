@@ -2,6 +2,9 @@ package org.madridjs.logopoll.web;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 
@@ -13,11 +16,15 @@ import org.madridjs.logopoll.rest.VotesRest;
 import org.madridjs.logopoll.services.VotesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 /**
@@ -58,6 +65,19 @@ public class VotesController {
 		
 		return items;
 		
+	}
+
+	@RequestMapping(value = "/vote/{userId}", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void vote(@PathVariable Long userId, @RequestBody VotesRest myVotes) {
+		List<Long> longVotes = new ArrayList<Long>();
+		logger.debug("Starting a vote with userId:"+userId+",myvotes:"+myVotes);
+		
+		for(String vote:myVotes.getVotes()){
+			longVotes.add(Long.valueOf(vote));
+		}
+		logger.debug("Converted VotesRest to Long Votes:"+longVotes);
+		votesService.vote(userId, longVotes);
 	}
 	
 }

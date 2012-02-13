@@ -11,12 +11,16 @@ import org.madridjs.logopoll.dto.UserDto;
 import org.madridjs.logopoll.dto.VoteDto;
 import org.madridjs.logopoll.rest.VotesRest;
 import org.madridjs.logopoll.services.VotesService;
+import org.madridjs.logopoll.web.VotesController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
+
 public class VotesServiceImpl implements VotesService {
+	private static final Logger logger = LoggerFactory.getLogger(VotesServiceImpl.class);
 	private VoteRepository votesDao;
 	private UserRepository usersDao;
 	
@@ -31,13 +35,14 @@ public class VotesServiceImpl implements VotesService {
 			throw new MethodNotSupportedException("Method not supported");
 		return null;
 	}
-
+	@Transactional
 	public void vote(Long userId, List<Long> myVotes) {
+		logger.debug("Starting vote with userId:"+userId+",myVotes:"+myVotes);
 		if(myVotes == null)
 			throw new IllegalArgumentException("Votes list is null");
 		
 		UserDto userDto = usersDao.findOne(userId);
-		
+		logger.debug("Retrieved userId:"+userId+",userDto:"+userDto);
 		for(Long voteId: myVotes){
 			VoteDto voteDto = new VoteDto(voteId);
 			voteDto.addUser(userDto);

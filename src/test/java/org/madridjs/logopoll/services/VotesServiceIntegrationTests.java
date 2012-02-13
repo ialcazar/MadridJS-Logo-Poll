@@ -30,7 +30,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
 @ContextConfiguration("classpath:spring/test-context.xml") 
-@Transactional
 public class VotesServiceIntegrationTests {
 	@Inject
 	private VotesService votesService;
