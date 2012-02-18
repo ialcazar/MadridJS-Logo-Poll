@@ -48,11 +48,18 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
-		<bean
+	<bean
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
 		id="entityManagerFactory">
 		<property name="persistenceUnitName" value="logoPoll" />
 		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+	</bean>
+	<bean id="hibernateJpaVendorAdapter">
+		<property name="database" value="POSTGRESQL" />
+        <property name="generateDdl" value="true" />
+        <property name="showSql" value="true" />
+        <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect" />
 	</bean>
 
 </beans>
