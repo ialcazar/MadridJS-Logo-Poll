@@ -69,7 +69,7 @@ public class UserDto {
 
 
 	public void addVote(VoteDto voteDto) {
-//		voteDto.addUser(this);
+		
 		if(this.votes == null)
 			this.votes = new HashSet<VoteDto>();
 		this.votes.add(voteDto);

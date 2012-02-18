@@ -35,7 +35,7 @@ public class VotesServiceUnitTests {
 	
 	@Before
 	public void setUp(){
-		userDto = new UserDto(USER_ID,USER_EMAIL);
+		userDto = mock(UserDto.class);
 
 		usersDao = mock(UserRepository.class);
 		votesDao = mock(VoteRepository.class);
@@ -56,8 +56,8 @@ public class VotesServiceUnitTests {
 		votesService.vote(USER_ID, myVotes);
 		
 		verify(usersDao).findOne(USER_ID);
-		
-		verify(votesDao).save(any(VoteDto.class));
+		verify(userDto).addVote(any(VoteDto.class));
+		verify(usersDao).save(any(UserDto.class));
 	}
 	@Test
 	public void user_votes_two_logo_result_correct(){
@@ -72,9 +72,8 @@ public class VotesServiceUnitTests {
 		
 		votesService.vote(USER_ID, myVotes);
 		
-		verify(usersDao).findOne(USER_ID);
-		
-		verify(votesDao,times(2)).save(any(VoteDto.class));
+		verify(userDto,times(2)).addVote(any(VoteDto.class));
+		verify(usersDao).save(any(UserDto.class));
 	}
 	
 	@Test

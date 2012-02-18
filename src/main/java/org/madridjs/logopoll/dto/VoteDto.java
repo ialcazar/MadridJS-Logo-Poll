@@ -17,8 +17,8 @@ public class VoteDto {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	@ManyToMany(mappedBy="votes")
-	private Set<UserDto> users;
+//	@ManyToMany(mappedBy="votes")
+//	private Set<UserDto> users;
 	
 	public VoteDto() {
 		super();
@@ -31,16 +31,16 @@ public class VoteDto {
 		
 	}
 
-	public void addUser(UserDto userDto) {
-		
-		
-		if(users == null)
-			this.users = new HashSet<UserDto>();
-		this.users.add(userDto);
-		
-		userDto.getVotes().add(this);
-
-		
-	}
+//	public void addUser(UserDto userDto) {
+//		
+//		
+//		if(users == null)
+//			this.users = new HashSet<UserDto>();
+//		this.users.add(userDto);
+//		
+//		userDto.getVotes().add(this);
+//
+//		
+//	}
 
 }

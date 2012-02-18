@@ -15,10 +15,11 @@ import org.madridjs.logopoll.web.VotesController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-
+@Transactional
 public class VotesServiceImpl implements VotesService {
 	private static final Logger logger = LoggerFactory.getLogger(VotesServiceImpl.class);
 	private VoteRepository votesDao;
@@ -35,7 +36,7 @@ public class VotesServiceImpl implements VotesService {
 			throw new MethodNotSupportedException("Method not supported");
 		return null;
 	}
-	@Transactional
+	
 	public void vote(Long userId, List<Long> myVotes) {
 		logger.debug("Starting vote with userId:"+userId+",myVotes:"+myVotes);
 		if(myVotes == null)
@@ -45,11 +46,11 @@ public class VotesServiceImpl implements VotesService {
 		logger.debug("Retrieved userId:"+userId+",userDto:"+userDto);
 		for(Long voteId: myVotes){
 			VoteDto voteDto = new VoteDto(voteId);
-			voteDto.addUser(userDto);
+			userDto.addVote(voteDto);
 		
-			votesDao.save(voteDto);
+			
 		}
-		
+		usersDao.save(userDto);
 
 	}
 
