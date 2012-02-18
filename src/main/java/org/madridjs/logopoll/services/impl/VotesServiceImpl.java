@@ -46,7 +46,6 @@ public class VotesServiceImpl implements VotesService {
 		for(Long voteId: myVotes){
 			VoteDto voteDto = new VoteDto(voteId);
 			userDto.addVote(voteDto);
-		
 			
 		}
 		usersDao.save(userDto);

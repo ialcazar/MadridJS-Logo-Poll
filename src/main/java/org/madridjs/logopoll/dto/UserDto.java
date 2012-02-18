@@ -50,7 +50,7 @@ public class UserDto {
 	}
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return  String.format("[id=%d, email=%s]", userId,email);
 	}
 
 	public Long getUserId() {
