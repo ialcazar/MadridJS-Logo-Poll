@@ -22,12 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class VotesServiceImpl implements VotesService {
 	private static final Logger logger = LoggerFactory.getLogger(VotesServiceImpl.class);
-	private VoteRepository votesDao;
 	private UserRepository usersDao;
 	
 	@Inject
-	public VotesServiceImpl(VoteRepository votesDao, UserRepository usersDao) {
-		this.votesDao = votesDao;
+	public VotesServiceImpl(UserRepository usersDao) {
+		
 		this.usersDao = usersDao;
 	}
 

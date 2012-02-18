@@ -35,10 +35,14 @@ public class VotesServiceUnitTests {
 	
 	@Before
 	public void setUp(){
-		userDto = mock(UserDto.class);
+		mockUp();
+		votesService = new VotesServiceImpl(usersDao);
+		
+	}
 
+	private void mockUp() {
+		userDto = mock(UserDto.class);
 		usersDao = mock(UserRepository.class);
-		votesDao = mock(VoteRepository.class);
 	}
 	
 	@Test
@@ -50,7 +54,7 @@ public class VotesServiceUnitTests {
 		
 		when(usersDao.findOne(USER_ID)).thenReturn(userDto);
 		
-		votesService = new VotesServiceImpl(votesDao,usersDao);
+		votesService = new VotesServiceImpl(usersDao);
 		
 		
 		votesService.vote(USER_ID, myVotes);
@@ -67,7 +71,7 @@ public class VotesServiceUnitTests {
 		
 		when(usersDao.findOne(USER_ID)).thenReturn(userDto);
 		
-		votesService = new VotesServiceImpl(votesDao,usersDao);
+		
 		
 		
 		votesService.vote(USER_ID, myVotes);
@@ -81,7 +85,6 @@ public class VotesServiceUnitTests {
 		
 		List<Long> myVotes = null;
 		
-		votesService = new VotesServiceImpl(votesDao,usersDao);
 		try{
 			votesService.vote(USER_ID, myVotes);
 			fail("Expected IllegalArgumentException");
