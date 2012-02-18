@@ -14,5 +14,8 @@ DROP TABLE if exists votes CASCADE;
 create table votes 
 (
 	id bigint not null, 
+    description varchar(255),
+	count int,
+	url varchar(255),
 	CONSTRAINT t_votes_pkey primary key (id)
 );

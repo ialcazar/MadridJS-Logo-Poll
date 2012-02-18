@@ -17,6 +17,11 @@ public class VoteDto {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	
+	private String description;
+	private int count;
+	private String url;
+	
 //	@ManyToMany(mappedBy="votes")
 //	private Set<UserDto> users;
 	
