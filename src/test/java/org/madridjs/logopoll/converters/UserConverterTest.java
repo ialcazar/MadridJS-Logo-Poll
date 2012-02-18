@@ -32,7 +32,7 @@ public class UserConverterTest {
 		
 		UserDto userDto = userConverter.toDto(userRest);
 		
-		assertEquals(userDtoExpected.getId(),userDto.getId(),0);
+		assertEquals(userDtoExpected.getUserId(),userDto.getUserId(),0);
 		assertEquals(userDtoExpected.getEmail(),userDto.getEmail());
 		
 	}
@@ -44,7 +44,7 @@ public class UserConverterTest {
 		
 		UserDto userDto = userConverter.toDto(userRest);
 		
-		assertNull(userDto.getId());
+		assertNull(userDto.getUserId());
 		assertEquals(userDtoExpected.getEmail(),userDto.getEmail());
 		
 	}

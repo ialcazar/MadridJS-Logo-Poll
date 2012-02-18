@@ -8,7 +8,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import org.madridjs.logopoll.dto.Logo;
+
 import org.madridjs.logopoll.exceptions.GeneralErrorException;
 import org.madridjs.logopoll.exceptions.ResourceNotFoundException;
 import org.madridjs.logopoll.rest.LogoRest;

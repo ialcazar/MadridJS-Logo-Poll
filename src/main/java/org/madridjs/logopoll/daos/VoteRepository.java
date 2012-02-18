@@ -1,15 +1,11 @@
 package org.madridjs.logopoll.daos;
 
-import java.util.List;
 
-import org.madridjs.logopoll.dto.UserDto;
+import org.madridjs.logopoll.dto.VoteDto;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Transactional
-public interface UserRepository extends PagingAndSortingRepository<UserDto, Long>{
-
-	List<UserDto> findByEmail(String email);
+public interface VoteRepository extends PagingAndSortingRepository<VoteDto, Long>{
 
 }

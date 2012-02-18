@@ -1,9 +1,16 @@
 package org.madridjs.logopoll.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -13,8 +20,12 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class UserDto {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	@Column(name="user_id")
+	private Long userId;
 	private String email;
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+	private Set<VoteDto> votes;
 	
 	
 	public UserDto() {
@@ -29,21 +40,41 @@ public class UserDto {
 	}
 
 	public UserDto(Long id, String email) {
-		this.id = id;
+		this.userId = id;
 		this.email = email;
 	}
+	
+	
 
 	public String getEmail() {
 		return this.email;
 	}
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return  String.format("[id=%d, email=%s]", userId,email);
 	}
 
-	public Long getId() {
+	public Long getUserId() {
 		
-		return this.id;
+		return this.userId;
+	}
+	
+	
+
+
+
+	public Set<VoteDto> getVotes() {
+		return votes;
+	}
+
+
+
+	public void addVote(VoteDto voteDto) {
+		
+		if(this.votes == null)
+			this.votes = new HashSet<VoteDto>();
+		this.votes.add(voteDto);
+		
 	}
 	
 	

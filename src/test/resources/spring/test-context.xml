@@ -7,8 +7,11 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<context:property-placeholder location="classpath:spring/test-database.properties"/>
+	
 	<import resource="classpath:spring/mail-context.xml"/>
 	<import resource="classpath:spring/database-context.xml"/>
+	
 	<context:component-scan base-package="org.madridjs.logopoll"></context:component-scan>
 	
 	<jdbc:initialize-database>
