@@ -9,3 +9,10 @@ CREATE TABLE  users
   surname varchar(255),
   CONSTRAINT t_users_pkey PRIMARY KEY (user_id)
 );
+
+DROP TABLE if exists votes CASCADE;
+create table votes 
+(
+	id bigint not null, 
+	CONSTRAINT t_votes_pkey primary key (id)
+);
