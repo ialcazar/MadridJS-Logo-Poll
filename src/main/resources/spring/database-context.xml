@@ -55,7 +55,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
 	</bean>
-	<bean id="hibernateJpaVendorAdapter">
+	<bean id="jpaVendorAdapter">
 		<property name="database" value="POSTGRESQL" />
         <property name="generateDdl" value="true" />
         <property name="showSql" value="true" />
