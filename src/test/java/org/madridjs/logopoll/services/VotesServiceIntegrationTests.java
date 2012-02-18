@@ -1,11 +1,6 @@
 package org.madridjs.logopoll.services;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-import static org.mockito.Matchers.any;
-
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,20 +8,8 @@ import javax.inject.Inject;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.madridjs.logopoll.converters.UserConverter;
-import org.madridjs.logopoll.daos.UserRepository;
-import org.madridjs.logopoll.daos.VoteRepository;
-import org.madridjs.logopoll.dto.UserDto;
-import org.madridjs.logopoll.dto.VoteDto;
-import org.madridjs.logopoll.exceptions.EmailException;
-
-import org.madridjs.logopoll.rest.UserRest;
-import org.madridjs.logopoll.services.impl.LoginServiceImpl;
-import org.madridjs.logopoll.services.impl.VotesServiceImpl;
-import org.madridjs.logopoll.validators.UserValidator;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
 @ContextConfiguration("classpath:spring/test-context.xml") 
@@ -43,6 +26,8 @@ public class VotesServiceIntegrationTests {
 		List<Long> myVotes = Arrays.asList(1l);
 		
 		votesService.vote(USER_ID, myVotes);
+		
+		//TODO Check inserts into database
 		
 	}
 	@Test

@@ -2,24 +2,22 @@ INSERT INTO users (user_id,email,name,surname) values(100,'israel1@gmail.com','I
 INSERT INTO users (user_id,email,name,surname) values(101,'israel2@gmail.com','Israel','Alcázar')
 INSERT INTO users (user_id,email,name,surname) values(102,'israel3@gmail.com','Israel','Alcázar')
 INSERT INTO users (user_id,email,name,surname) values(103,'israel4@gmail.com','Israel','Alcázar')
-INSERT INTO votes (id) values(1);
-INSERT INTO votes (id) values(2);
-INSERT INTO votes (id) values(3);
-INSERT INTO votes (id) values(4);
-INSERT INTO votes (id) values(5);
-INSERT INTO votes (id) values(6);
-INSERT INTO votes (id) values(7);
-INSERT INTO votes (id) values(8);
-INSERT INTO votes (id) values(9);
-INSERT INTO votes (id) values(10);
-INSERT INTO votes (id) values(11);
-INSERT INTO votes (id) values(12);
-INSERT INTO votes (id) values(13);
-INSERT INTO votes (id) values(14);
-INSERT INTO votes (id) values(15);
-INSERT INTO votes (id) values(16);
-INSERT INTO votes (id) values(17);
-INSERT INTO votes (id) values(18);
-INSERT INTO votes (id) values(19);
-
-
+INSERT INTO votes (id,description,count) values(1,'Logo 1',0)
+INSERT INTO votes (id,description,count) values(2,'Logo 2',0)
+INSERT INTO votes (id,description,count) values(3,'Logo 3',0)
+INSERT INTO votes (id,description,count) values(4,'Logo 4',0)
+INSERT INTO votes (id,description,count) values(5,'Logo 5',0)
+INSERT INTO votes (id,description,count) values(6,'Logo 6',0)
+INSERT INTO votes (id,description,count) values(7,'Logo 7',0)
+INSERT INTO votes (id,description,count) values(8,'Logo 8',0)
+INSERT INTO votes (id,description,count) values(9,'Logo 9',0)
+INSERT INTO votes (id,description,count) values(10,'Logo 10',0)
+INSERT INTO votes (id,description,count) values(11,'Logo 11',0)
+INSERT INTO votes (id,description,count) values(12,'Logo 12',0)
+INSERT INTO votes (id,description,count) values(13,'Logo 13',0)
+INSERT INTO votes (id,description,count) values(14,'Logo 14',0)
+INSERT INTO votes (id,description,count) values(15,'Logo 15',0)
+INSERT INTO votes (id,description,count) values(16,'Logo 16',0)
+INSERT INTO votes (id,description,count) values(17,'Logo 17',0)
+INSERT INTO votes (id,description,count) values(18,'Logo 18',0)
+INSERT INTO votes (id,description,count) values(19,'Logo 19',0)
