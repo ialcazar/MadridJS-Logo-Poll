@@ -42,25 +42,13 @@
 		<property name="minEvictableIdleTimeMillis" value="1800000" />
 		<property name="validationQuery" value="SELECT version();" />
 	</bean>
+	
 	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
 		id="transactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	
-	<tx:advice id="txAdvice">
-		<tx:attributes>
-			<tx:method name="vote*" propagation="REQUIRED" />
-			<tx:method name="*" propagation="SUPPORTS" read-only="true" />
-		</tx:attributes>
-	</tx:advice>
-
-	<aop:config>
-		<aop:advisor pointcut="execution(* *..VotesService.*(..))"
-			advice-ref="txAdvice" />
-	</aop:config>
-	
-	<bean
+		<bean
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
 		id="entityManagerFactory">
 		<property name="persistenceUnitName" value="logoPoll" />
