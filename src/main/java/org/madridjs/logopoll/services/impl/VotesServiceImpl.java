@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
+@Transactional(propagation=Propagation.REQUIRED)
 public class VotesServiceImpl implements VotesService {
 	private static final Logger logger = LoggerFactory.getLogger(VotesServiceImpl.class);
 	private UserRepository usersDao;

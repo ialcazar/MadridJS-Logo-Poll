@@ -55,7 +55,8 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
 	</bean>
-	<bean id="jpaVendorAdapter">
+	
+	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="database" value="POSTGRESQL" />
         <property name="generateDdl" value="true" />
         <property name="showSql" value="true" />
