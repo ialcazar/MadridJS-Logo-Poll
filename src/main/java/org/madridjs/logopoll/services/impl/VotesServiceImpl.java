@@ -64,7 +64,7 @@ public class VotesServiceImpl implements VotesService {
 	}
 
 	private String createBody() {
-		return "Gracias por emitir tu votación.\n Necesitamos que confirmes tu voto pinchando en este enlace: <a href='#'>Confirmar</a>";
+		return "Gracias por emitir tu votación.\n Necesitamos que confirmes tu voto pinchando en este enlace: http://poll.madridjs.org/";
 		
 	}
 
