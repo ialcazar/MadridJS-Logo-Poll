@@ -10,6 +10,7 @@ import org.madridjs.logopoll.daos.VoteRepository;
 import org.madridjs.logopoll.dto.UserDto;
 import org.madridjs.logopoll.dto.VoteDto;
 import org.madridjs.logopoll.rest.VotesRest;
+import org.madridjs.logopoll.services.MailService;
 import org.madridjs.logopoll.services.VotesService;
 import org.madridjs.logopoll.web.VotesController;
 import org.slf4j.Logger;
@@ -23,11 +24,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class VotesServiceImpl implements VotesService {
 	private static final Logger logger = LoggerFactory.getLogger(VotesServiceImpl.class);
 	private UserRepository usersDao;
+	private MailService mailService;
 	
 	@Inject
-	public VotesServiceImpl(UserRepository usersDao) {
+	public VotesServiceImpl(UserRepository usersDao, MailService mailService) {
 		
 		this.usersDao = usersDao;
+		this.mailService = mailService;
 	}
 
 	public VotesRest listAllRest() throws MethodNotSupportedException {
@@ -37,7 +40,7 @@ public class VotesServiceImpl implements VotesService {
 	}
 	
 	public void vote(Long userId, List<Long> myVotes) {
-		logger.debug("Starting vote with userId:"+userId+",myVotes:"+myVotes);
+		logger.info("Starting vote with userId:"+userId+",myVotes:"+myVotes);
 		if(myVotes == null)
 			throw new IllegalArgumentException("Votes list is null");
 		
@@ -49,7 +52,20 @@ public class VotesServiceImpl implements VotesService {
 			
 		}
 		usersDao.save(userDto);
+		String body = createBody();
+		String subject = createSubject();
+		mailService.send("madridjavascript@gmail.com", userDto.getEmail(), subject, body);
+		
 
+	}
+
+	private String createSubject() {
+		return "[Madrid.js][Votacion] Confirma tu voto";
+	}
+
+	private String createBody() {
+		return "Gracias por emitir tu votación.\n Necesitamos que confirmes tu voto pinchando en este enlace: <a href='#'>Confirmar</a>";
+		
 	}
 
 }

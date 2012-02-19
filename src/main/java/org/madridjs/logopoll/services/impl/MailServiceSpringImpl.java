@@ -34,10 +34,13 @@ public class MailServiceSpringImpl implements MailService{
 		mailMessage.setSubject(subject);
 		mailMessage.setText(body);
 		
-		JavaMailSenderImpl jmsi = (JavaMailSenderImpl)mailSender;
-		
-
-		logger.info("Sending Message [host="+jmsi.getHost()+",port="+jmsi.getPort()+",username="+jmsi.getUsername()+",password="+jmsi.getPassword());
+		JavaMailSenderImpl jmsi = null;
+		if(jmsi instanceof JavaMailSenderImpl){
+			jmsi = (JavaMailSenderImpl)mailSender;
+			logger.info("Sending Message [host="+jmsi.getHost()+",port="+jmsi.getPort()+",username="+jmsi.getUsername()+",password="+jmsi.getPassword());
+		}else {
+			logger.info("Sending Message no JavaMailSender");
+		}
 		mailSender.send((SimpleMailMessage)mailMessage);
 		
 	}

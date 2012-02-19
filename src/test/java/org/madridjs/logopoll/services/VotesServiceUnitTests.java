@@ -29,6 +29,7 @@ public class VotesServiceUnitTests {
 	private UserDto userDto;
 	private UserRepository usersDao;
 	private VoteRepository votesDao; 
+	private MailService    mailService;
 	
 	private final static Long USER_ID = 1l;
 	private final static String USER_EMAIL = "miemail@unemail.com";
@@ -36,13 +37,14 @@ public class VotesServiceUnitTests {
 	@Before
 	public void setUp(){
 		mockUp();
-		votesService = new VotesServiceImpl(usersDao);
+		votesService = new VotesServiceImpl(usersDao,mailService);
 		
 	}
 
 	private void mockUp() {
 		userDto = mock(UserDto.class);
 		usersDao = mock(UserRepository.class);
+		mailService = mock(MailService.class);
 	}
 	
 	@Test
@@ -53,15 +55,14 @@ public class VotesServiceUnitTests {
 		
 		
 		when(usersDao.findOne(USER_ID)).thenReturn(userDto);
-		
-		votesService = new VotesServiceImpl(usersDao);
-		
+			
 		
 		votesService.vote(USER_ID, myVotes);
 		
 		verify(usersDao).findOne(USER_ID);
 		verify(userDto).addVote(any(VoteDto.class));
 		verify(usersDao).save(any(UserDto.class));
+		verify(mailService).send(anyString(), anyString(), anyString(), anyString());
 	}
 	@Test
 	public void user_votes_two_logo_result_correct(){
