@@ -58,7 +58,8 @@
 		</article>
 		<article id="step_3" class="step">
 			<div class="hero-unit">
-				<h1>¡Gracias por votar!</h1>
+				<h1>¡Gracias por participar!</h1>
+				Te hemos enviado un mail para que confirmes tu voto.
 			</div>
 		</article>
 		<footer>

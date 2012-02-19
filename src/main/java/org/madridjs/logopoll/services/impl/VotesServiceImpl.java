@@ -52,7 +52,7 @@ public class VotesServiceImpl implements VotesService {
 			
 		}
 		usersDao.save(userDto);
-		String body = createBody();
+		String body = createBody(userDto);
 		String subject = createSubject();
 		mailService.send("madridjavascript@gmail.com", userDto.getEmail(), subject, body);
 		
@@ -63,8 +63,8 @@ public class VotesServiceImpl implements VotesService {
 		return "[Madrid.js][Votacion] Confirma tu voto";
 	}
 
-	private String createBody() {
-		return "Gracias por emitir tu votación.\n Necesitamos que confirmes tu voto pinchando en este enlace: http://poll.madridjs.org/";
+	private String createBody(UserDto userDto) {
+		return "Gracias por participar.\n Necesitamos que confirmes tu voto visitando la siguiente dirección: http://poll.madridjs.org/confirm?email="+userDto.getEmail()+"&i="+userDto.getUserId();
 		
 	}
 
