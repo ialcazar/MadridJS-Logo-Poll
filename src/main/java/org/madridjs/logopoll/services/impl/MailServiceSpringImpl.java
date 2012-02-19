@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailMessage;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,7 +34,13 @@ public class MailServiceSpringImpl implements MailService{
 		mailMessage.setSubject(subject);
 		mailMessage.setText(body);
 		
-		logger.info("Sending Message");
+		JavaMailSenderImpl jmsi = null;
+		if(jmsi instanceof JavaMailSenderImpl){
+			jmsi = (JavaMailSenderImpl)mailSender;
+			logger.info("Sending Message [host="+jmsi.getHost()+",port="+jmsi.getPort()+",username="+jmsi.getUsername()+",password="+jmsi.getPassword());
+		}else {
+			logger.info("Sending Message no JavaMailSender");
+		}
 		mailSender.send((SimpleMailMessage)mailMessage);
 		
 	}
