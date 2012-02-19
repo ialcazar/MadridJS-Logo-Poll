@@ -24,6 +24,6 @@
 	</property>
 </bean>
 
-<bean class="org.springframework.mail.javamail.MimeMailMessage" ></bean>
+<bean class="org.springframework.mail.SimpleMailMessage" ></bean>
 
 </beans>

@@ -21,7 +21,7 @@ public class MailServiceIntegrationTests {
 		String from = "madridjavascript@gmail.com";
 		String to   = "israelalcazar@gmail.com";
 		String subject = "[madrid.js][logo poll] Testing";
-		String body = "ESto es un mensaje de prueba";
+		String body = "ESto es un mensaje de prueba con un enlace http://www.google.com";
 		
 		mailService.send(from,to,subject,body);
 	
