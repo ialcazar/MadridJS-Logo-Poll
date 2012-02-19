@@ -25,7 +25,8 @@ public class VotesControllerUnitTests {
 	@Test
 	public void user_votes_some_logos(){
 		List<Long> votes = Arrays.asList(1l,2l,3l);
-		VotesRest myVotes = new VotesRest();
+		List<String> sVotes = Arrays.asList("1","2","3");
+		VotesRest myVotes = new VotesRest(sVotes);
 		VotesService votesService = mock(VotesService.class);
 		
 		VotesController votesController = new VotesController(votesService);
