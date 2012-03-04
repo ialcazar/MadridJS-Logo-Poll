@@ -23,6 +23,7 @@ public class UserDto {
 	@Column(name="user_id")
 	private Long userId;
 	private String email;
+	private String timeStamp;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
 	private Set<VoteDto> votes;
@@ -75,6 +76,18 @@ public class UserDto {
 			this.votes = new HashSet<VoteDto>();
 		this.votes.add(voteDto);
 		
+	}
+
+
+
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 	
 	

@@ -40,6 +40,7 @@ public class VotesServiceImpl implements VotesService {
 	}
 	
 	public void vote(Long userId, List<Long> myVotes) {
+		String currentTime = null;
 		logger.info("Starting vote with userId:"+userId+",myVotes:"+myVotes);
 		if(myVotes == null)
 			throw new IllegalArgumentException("Votes list is null");
@@ -51,6 +52,9 @@ public class VotesServiceImpl implements VotesService {
 			userDto.addVote(voteDto);
 			
 		}
+		
+		currentTime = getCurrentTimeStampMillis();
+		userDto.setTimeStamp(currentTime);
 		usersDao.save(userDto);
 		String body = createBody(userDto);
 		String subject = createSubject();
@@ -58,13 +62,17 @@ public class VotesServiceImpl implements VotesService {
 		
 
 	}
+	
+	private String getCurrentTimeStampMillis(){
+		return String.valueOf(System.currentTimeMillis());
+	}
 
 	private String createSubject() {
 		return "[Madrid.js][Votacion] Confirma tu voto";
 	}
 
 	private String createBody(UserDto userDto) {
-		return "Gracias por participar.\n Necesitamos que confirmes tu voto visitando la siguiente dirección: http://poll.madridjs.org/confirm?email="+userDto.getEmail()+"&i="+userDto.getUserId();
+		return "Gracias por participar.\n Necesitamos que confirmes tu voto visitando la siguiente dirección: http://poll.madridjs.org/confirm?id="+userDto.getTimeStamp()+"&i="+userDto.getUserId();
 		
 	}
 
