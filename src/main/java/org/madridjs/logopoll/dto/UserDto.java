@@ -23,7 +23,7 @@ public class UserDto {
 	@Column(name="user_id")
 	private Long userId;
 	private String email;
-	private String timeStamp;
+	private String timeStamps;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
 	private Set<VoteDto> votes;
@@ -45,14 +45,12 @@ public class UserDto {
 		this.email = email;
 	}
 	
-	
-
 	public String getEmail() {
 		return this.email;
 	}
 	@Override
 	public String toString() {
-		return  String.format("[id=%d, email=%s]", userId,email);
+		return  String.format("[id=%d, email=%s, timeStamps=%s]", userId,email,timeStamps);
 	}
 
 	public Long getUserId() {
@@ -81,15 +79,17 @@ public class UserDto {
 
 
 	public String getTimeStamp() {
-		return timeStamp;
+		return timeStamps;
 	}
 
 
 
 	public void setTimeStamp(String timeStamp) {
-		this.timeStamp = timeStamp;
+		this.timeStamps = timeStamp;
 	}
 	
-	
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 }

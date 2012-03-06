@@ -8,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 
+import org.madridjs.logopoll.dto.UserDto;
 import org.madridjs.logopoll.exceptions.GeneralErrorException;
 import org.madridjs.logopoll.exceptions.ResourceNotFoundException;
 
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -79,6 +81,25 @@ public class VotesController {
 		}
 		logger.debug("Converted VotesRest to Long Votes:"+longVotes);
 		votesService.vote(userId, longVotes);
+	}
+	@RequestMapping(value="/confirm")
+	public String confirmVote(@RequestParam("id") String timeStamp,
+							  @RequestParam("i") String userId, Model model){
+		String msg ="";
+		UserDto userDto = new UserDto();
+		userDto.setTimeStamp(timeStamp);
+		userDto.setUserId(Long.valueOf(userId));
+		try{
+			votesService.confirm(userDto);
+			msg = "Gracias por confirmar tu voto";
+		}catch(Throwable e){
+			msg = "Error inexperado. Vuelva a pinchar sobre el enlace en su email para confirmar el voto";
+		}
+		
+		model.addAttribute("msg", msg);
+		
+		return "confirm";
+		
 	}
 	
 }

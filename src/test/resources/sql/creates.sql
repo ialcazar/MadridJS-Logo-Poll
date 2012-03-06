@@ -7,6 +7,7 @@ CREATE TABLE  users
   email varchar(255),
   name varchar(255),
   surname varchar(255),
+  timestamps varchar(255),
   CONSTRAINT t_users_pkey PRIMARY KEY (user_id)
 );
 
@@ -19,3 +20,11 @@ create table votes
 	url varchar(255),
 	CONSTRAINT t_votes_pkey primary key (id)
 );
+
+DROP TABLE if exists users_votes CASCADE;
+create table users_votes(
+	users_user_id bigint,
+	votes_id bigint,
+	CONSTRAINT t_users_votes_pkey primary key (users_user_id,votes_id)
+);
+

@@ -1,13 +1,23 @@
 package org.madridjs.logopoll.services;
 
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.madridjs.logopoll.dto.UserDto;
+import org.madridjs.logopoll.dto.VoteDto;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,6 +31,7 @@ public class VotesServiceIntegrationTests {
 	private final static Long USER_ID = 100l;
 	
 	@Test
+	@Ignore
 	public void user_votes_one_logo_result_correct(){
 		
 		List<Long> myVotes = Arrays.asList(1l);
@@ -50,5 +61,16 @@ public class VotesServiceIntegrationTests {
 //		
 //		
 //	}
+	
+	@Test
+	public void user_confirms_votes(){
+			UserDto userDto = new UserDto();
+			userDto.setTimeStamp("123456");
+			userDto.setUserId(101l);
+			
+			votesService.confirm(userDto);
+			
+			//TODO Confirm votes are added
+	}
 		
 }

@@ -15,7 +15,7 @@ public class UserRest extends RestEntity implements Serializable {
 	
 	public UserRest() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public UserRest(String id, String email) {

@@ -1,38 +1,38 @@
 package org.madridjs.logopoll.services;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.madridjs.logopoll.converters.UserConverter;
 import org.madridjs.logopoll.daos.UserRepository;
-import org.madridjs.logopoll.daos.VoteRepository;
 import org.madridjs.logopoll.dto.UserDto;
 import org.madridjs.logopoll.dto.VoteDto;
-import org.madridjs.logopoll.exceptions.EmailException;
-
-import org.madridjs.logopoll.rest.UserRest;
-import org.madridjs.logopoll.services.impl.LoginServiceImpl;
+import org.madridjs.logopoll.exceptions.NotVotesFoundException;
 import org.madridjs.logopoll.services.impl.VotesServiceImpl;
-import org.madridjs.logopoll.validators.UserValidator;
 
 
 public class VotesServiceUnitTests {
 	private VotesService votesService;
 	
+	private VoteDto voteDto;
 	private UserDto userDto;
 	private UserRepository usersDao;
-	private VoteRepository votesDao; 
 	private MailService    mailService;
 	
 	private final static Long USER_ID = 1l;
-	private final static String USER_EMAIL = "miemail@unemail.com";
 	
 	@Before
 	public void setUp(){
@@ -42,6 +42,7 @@ public class VotesServiceUnitTests {
 	}
 
 	private void mockUp() {
+		voteDto = mock(VoteDto.class);
 		userDto = mock(UserDto.class);
 		usersDao = mock(UserRepository.class);
 		mailService = mock(MailService.class);
@@ -92,6 +93,41 @@ public class VotesServiceUnitTests {
 		}catch(IllegalArgumentException e){}
 		
 		
+	}
+	
+	@Test
+	public void user_confirms_votes(){
+			Set<VoteDto> myVotes = new HashSet<VoteDto>(3);
+			myVotes.add(voteDto);
+			myVotes.add(voteDto);
+			
+			when(usersDao.findByTimeStampsAndUserId(anyString(), anyLong())).thenReturn(userDto);
+			when(userDto.getVotes()).thenReturn(myVotes);
+			
+			
+			votesService.confirm(userDto);
+			
+			verify(usersDao).findByTimeStampsAndUserId(anyString(), anyLong());
+			verify(userDto).getVotes();
+			verify(voteDto,atLeast(myVotes.size())).addCount();
+			verify(usersDao).save(userDto);
+	}
+	
+	@Test
+	public void user_confirms_votes_when_user_hasnt_votes(){
+			Set<VoteDto> myVotes = new HashSet<VoteDto>(3);
+			
+			when(usersDao.findByTimeStampsAndUserId(anyString(), anyLong())).thenReturn(userDto);
+			when(userDto.getVotes()).thenReturn(myVotes);
+			
+			try{
+				votesService.confirm(userDto);
+				fail("Expecting NotVotesFoundException");
+			}catch(NotVotesFoundException e){}
+			
+			verify(usersDao).findByTimeStampsAndUserId(anyString(), anyLong());
+			verify(userDto).getVotes();
+			
 	}
 		
 }

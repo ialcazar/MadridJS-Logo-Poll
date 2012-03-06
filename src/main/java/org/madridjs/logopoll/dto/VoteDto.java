@@ -47,5 +47,14 @@ public class VoteDto {
 //
 //		
 //	}
+	
+	public void addCount(){
+		this.count++;
+	}
+	
+	@Override
+	public String toString() {
+		return  String.format("[id=%d, count=%n]", id,count);
+	}
 
 }
