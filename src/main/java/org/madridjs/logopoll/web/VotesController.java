@@ -89,6 +89,7 @@ public class VotesController {
 		UserDto userDto = new UserDto();
 		userDto.setTimeStamp(timeStamp);
 		userDto.setUserId(Long.valueOf(userId));
+		logger.debug("Starting vote confirmation with data "+userDto);
 		try{
 			votesService.confirm(userDto);
 			msg = "Gracias por confirmar tu voto";
@@ -98,6 +99,7 @@ public class VotesController {
 		
 		model.addAttribute("msg", msg);
 		
+		logger.debug("Redirecting to confirm with msg: "+msg);
 		return "confirm";
 		
 	}

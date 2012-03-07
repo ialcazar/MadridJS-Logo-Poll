@@ -96,7 +96,12 @@ public class VotesServiceImpl implements VotesService {
 		logger.debug("Obtained "+votes.size()+" Votes");
 		
 		for(VoteDto vote:votes){
+			
 			vote.addCount();
+			logger.debug("Added 1 vote to "+vote);
+			
+			myUserDto.addVote(vote);
+			logger.debug("Added vote to user");
 		}
 		
 		usersDao.save(myUserDto);

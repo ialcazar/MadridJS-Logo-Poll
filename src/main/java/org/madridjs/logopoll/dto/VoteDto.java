@@ -49,12 +49,12 @@ public class VoteDto {
 //	}
 	
 	public void addCount(){
-		this.count++;
+		this.count = this.count+1;
 	}
 	
 	@Override
 	public String toString() {
-		return  String.format("[id=%d, count=%n]", id,count);
+		return  String.format("[id=%d, count=%d]", id,this.count);
 	}
 
 }
