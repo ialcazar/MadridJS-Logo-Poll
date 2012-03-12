@@ -71,7 +71,7 @@
 	<script id="errorTmpl" type="text/x-jquery-tmpl"> 
 		<div id="\${id}" class="alert-message block-message error fade" data-alert="alert">
 			<div class="container close">
-				<p><strong>Error</strong> \${errorMsg}</p>
+				<p><strong>Error, el mail ya existe</strong> \${errorMsg}</p>
 			</div>
 		</div>
 	</script>
