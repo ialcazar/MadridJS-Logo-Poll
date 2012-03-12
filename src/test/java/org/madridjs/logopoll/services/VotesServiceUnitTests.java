@@ -18,6 +18,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.madridjs.logopoll.daos.UserRepository;
+import org.madridjs.logopoll.daos.VoteRepository;
 import org.madridjs.logopoll.dto.UserDto;
 import org.madridjs.logopoll.dto.VoteDto;
 import org.madridjs.logopoll.exceptions.NotVotesFoundException;
@@ -30,6 +31,7 @@ public class VotesServiceUnitTests {
 	private VoteDto voteDto;
 	private UserDto userDto;
 	private UserRepository usersDao;
+	private VoteRepository votesDao;
 	private MailService    mailService;
 	
 	private final static Long USER_ID = 1l;
@@ -37,7 +39,7 @@ public class VotesServiceUnitTests {
 	@Before
 	public void setUp(){
 		mockUp();
-		votesService = new VotesServiceImpl(usersDao,mailService);
+		votesService = new VotesServiceImpl(usersDao,votesDao,mailService);
 		
 	}
 
@@ -45,6 +47,7 @@ public class VotesServiceUnitTests {
 		voteDto = mock(VoteDto.class);
 		userDto = mock(UserDto.class);
 		usersDao = mock(UserRepository.class);
+		votesDao = mock(VoteRepository.class);
 		mailService = mock(MailService.class);
 	}
 	
@@ -110,7 +113,7 @@ public class VotesServiceUnitTests {
 			verify(usersDao).findByTimeStampsAndUserId(anyString(), anyLong());
 			verify(userDto).getVotes();
 			verify(voteDto,atLeast(myVotes.size())).addCount();
-			verify(usersDao).save(userDto);
+			verify(votesDao).save(voteDto);
 	}
 	
 	@Test

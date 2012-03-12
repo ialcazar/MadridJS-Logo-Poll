@@ -27,13 +27,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class VotesServiceImpl implements VotesService {
 	private static final Logger logger = LoggerFactory.getLogger(VotesServiceImpl.class);
 	private UserRepository usersDao;
+	private VoteRepository votesDao;
 	private MailService mailService;
 	
-	@Inject
+	
 	public VotesServiceImpl(UserRepository usersDao, MailService mailService) {
 		
 		this.usersDao = usersDao;
 		this.mailService = mailService;
+	}
+	
+	@Inject
+	public VotesServiceImpl(UserRepository usersDao, VoteRepository votesDao,
+			MailService mailService) {
+		this(usersDao,mailService);
+		this.votesDao = votesDao;
 	}
 
 	public VotesRest listAllRest() throws MethodNotSupportedException {
@@ -100,11 +108,11 @@ public class VotesServiceImpl implements VotesService {
 			vote.addCount();
 			logger.debug("Added 1 vote to "+vote);
 			
-			myUserDto.addVote(vote);
-			logger.debug("Added vote to user");
+			votesDao.save(vote);
+			logger.debug("Saved Vote");
 		}
 		
-		usersDao.save(myUserDto);
+		
 		logger.debug("User Saved "+myUserDto);
 		
 		
