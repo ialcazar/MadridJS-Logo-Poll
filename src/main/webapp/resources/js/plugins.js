@@ -29,6 +29,9 @@ $.fn.serializeObject = function()
             o[this.name].push(this.value || '');
         } else {
             o[this.name] = this.value || '';
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
         }
     });
     return o;
