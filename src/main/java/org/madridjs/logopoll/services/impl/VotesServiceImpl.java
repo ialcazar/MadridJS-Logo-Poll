@@ -99,7 +99,7 @@ public class VotesServiceImpl implements VotesService {
 		Set<VoteDto> votes = myUserDto.getVotes();
 		
 		if(votes == null || votes.size() == 0)
-			throw new NotVotesFoundException("There are votes for this userId "+ userDto.getUserId());
+			throw new NotVotesFoundException("There arent votes for this userId "+ userDto.getUserId());
 		
 		logger.debug("Obtained "+votes.size()+" Votes");
 		
@@ -111,8 +111,9 @@ public class VotesServiceImpl implements VotesService {
 			votesDao.save(vote);
 			logger.debug("Saved Vote");
 		}
-		
-		
+		logger.debug("Modifying user timestamp");
+		myUserDto.setTimeStamp(null);
+		usersDao.save(myUserDto);
 		logger.debug("User Saved "+myUserDto);
 		
 		
