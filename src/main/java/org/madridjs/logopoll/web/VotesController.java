@@ -93,6 +93,8 @@ public class VotesController {
 		try{
 			votesService.confirm(userDto);
 			msg = "Gracias por confirmar tu voto";
+		}catch(RuntimeException e){
+			msg = e.getMessage();
 		}catch(Throwable e){
 			msg = "Error inexperado. Vuelva a pinchar sobre el enlace en su email para confirmar el voto";
 		}
