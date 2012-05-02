@@ -63,7 +63,7 @@
 			</div>
 		</article>
 		<footer>
-			<p>Estamos en <a href="http://madridjs.org">http://madridjs.org</a></p>
+			<p>Cualquier problema mándanos un mail a <a href="mailto:madridjavascript@gmail.com">madridjavascript@gmail.com</a></p>
 		</footer>
 	</div>
 	<!-- Tempaltes -->
