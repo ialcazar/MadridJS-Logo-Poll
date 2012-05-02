@@ -77,7 +77,7 @@
 	</script>
 	
 	<script id="logoListTmpl" type="text/x-jquery-tmpl"> 
-		<p>Vota 3 de los \${count} logos presentados.</p>
+		<p>Vota 1 de los \${count} logos presentados.</p>
 	    <ul id="logos" class="media-grid">{{tmpl(items) "#logoItemTmpl"}}</ul>
 	</script>
 

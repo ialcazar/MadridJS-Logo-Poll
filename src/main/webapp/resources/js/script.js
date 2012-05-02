@@ -214,10 +214,10 @@ logoPollSettings.stepFunctions[1] = {
 		{
 			case 0:
 				return 'No has seleccionado ningún logo';
-			case 1: case 2: case 3:
+			case 1:
 				return true;
 			default:
-				return 'Has seleccionado más de 3 logos';
+				return 'Has seleccionado más de 1 logo';
 		}
 	}
 	, getData: function(index, element){
@@ -231,103 +231,16 @@ logoPollSettings.stepFunctions[1] = {
 		data = {
 			items: [
 				  {
-					  'id':1
-					, 'description': 'Logo 1'
-					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/1.png'
-					
-				  }
-				, {
-					  'id':2
-					, 'description': 'Logo 2'
-					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/2.png'
-				  }
-				, {
-					  'id':3
-					, 'description': 'Logo 3'
-					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/3.png'
-				  }
-				, {
-					  'id':4
-					, 'description': 'Logo 4'
-					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/4.png'
-					
-				  }
-				, {
-					  'id':5
-					, 'description': 'Logo 5'
-					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/5.png'
-				  }
-				, {
-					  'id':6
-					, 'description': 'Logo 6'
-					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/6.png'
-					
-				  }
-				, {
-					  'id':7
-					, 'description': 'Logo 7'
-					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/7.png'
-				  }
-				, {
-					  'id':8
-					, 'description': 'Logo 8'
-					, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/8.png'
-				  }
-				, {
-					  'id':9
-						, 'description': 'Logo 9'
-						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/9.png'
-					  }
-				, {
-					  'id':10
-						, 'description': 'Logo 10'
-						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/10.png'
-					  }
-				,{
-					  'id':11
-						, 'description': 'Logo 11'
-						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/11.png'
-					  }
-				,{
-					  'id':12
-						, 'description': 'Logo 12'
-						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/12.png'
-					  }
-				,{
-					  'id':13
-						, 'description': 'Logo 13'
-						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/13.png'
-					  }
-				,{
 					  'id':14
-						, 'description': 'Logo 14'
-						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/14.png'
-					  }
-				,{
-					  'id':15
-						, 'description': 'Logo 15'
-						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/15.png'
-					  }
-				,{
-					  'id':16
-						, 'description': 'Logo 16'
-						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/16.png'
-					  }
-				,{
-					  'id':17
-						, 'description': 'Logo 17'
-						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/17.png'
-					  },
-					  {
-						  'id':18
-							, 'description': 'Logo 18'
-							, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/18.png'
-						  }
-				,{
-					  'id':19
-						, 'description': 'Logo 19'
-						, 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/19.png'
-					  }
+				    , 'description': 'Logo 14'
+				    , 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/14.png'
+				  }
+				,
+				  {
+					  'id':18
+				    , 'description': 'Logo 18'
+				    , 'url': 'http://dl.dropbox.com/u/7490648/logos-MadridJS/18.png'
+				  }
 			]
 		};
 		data.count = data.items.length;
