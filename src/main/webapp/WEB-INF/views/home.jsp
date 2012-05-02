@@ -39,7 +39,7 @@
 	<section class="container">
 		<article id="step_1" class="step hero-unit">
 			<h1>Vota el logo de MadridJS</h1>
-			<p>Bienvenido a la encuesta para elegir el logo de MadridJS. Introduce tu email para entrar en el sistema de votación. Introduce un mail correcto ya que te enviaremos una confirmación a este mail.</p>
+			<p>Bienvenido a la encuesta para elegir el logo de MadridJS. Introduce tu email para entrar en el sistema de votaciÃ³n. Introduce un mail correcto ya que te enviaremos una confirmaciÃ³n a este mail.</p>
 			<form method="post" action="/login">
 				<div class="clearfix">
 					<input class="xlarge" id="email" name="email" size="30" type="email" required>
@@ -49,7 +49,7 @@
 		</article>
 		<article id="step_2" class="step">
 			<div class="hero-unit">
-				<h1>Elige <strong>3 logos</strong></h1>
+				<h1>Elige <strong>1 logo</strong></h1>
 			</div>
 			<form method="post" action="/vote">
 				<div id="logoList" data-getdata="/logos"></div>
@@ -58,12 +58,12 @@
 		</article>
 		<article id="step_3" class="step">
 			<div class="hero-unit">
-				<h1>¡Gracias por participar!</h1>
+				<h1>Â¡Gracias por participar!</h1>
 				<h2>Te hemos enviado un mail para que confirmes tu voto.</h2>
 			</div>
 		</article>
 		<footer>
-			<p>Cualquier problema mándanos un mail a <a href="mailto:madridjavascript@gmail.com">madridjavascript@gmail.com</a></p>
+			<p>Cualquier problema mÃ¡ndanos un mail a <a href="mailto:madridjavascript@gmail.com">madridjavascript@gmail.com</a></p>
 		</footer>
 	</div>
 	<!-- Tempaltes -->
@@ -85,7 +85,7 @@
 		<li>
 			<input type="checkbox" name="votes" id="logo_\${id}" value="\${id}">
 			<label for="logo_\${id}">
-				<img class="thumbnail" src="\${url}" alt="Proposición de logo \${id}" title="\${description}" height="\${height}" width="210"/>
+				<img class="thumbnail" src="\${url}" alt="ProposiciÃ³n de logo \${id}" title="\${description}" height="\${height}" width="210"/>
 			</label>
 		</li>
 	</script>
