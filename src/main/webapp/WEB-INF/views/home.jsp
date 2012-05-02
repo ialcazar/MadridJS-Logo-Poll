@@ -39,7 +39,7 @@
 	<section class="container">
 		<article id="step_1" class="step hero-unit">
 			<h1>Vota el logo de MadridJS</h1>
-			<p>Bienvenido a la encuesta para elegir el logo de MadridJS. Introduce tu email para entrar en el sistema de votación</p>
+			<p>Bienvenido a la encuesta para elegir el logo de MadridJS. Introduce tu email para entrar en el sistema de votación. Introduce un mail correcto ya que te enviaremos una confirmación a este mail.</p>
 			<form method="post" action="/login">
 				<div class="clearfix">
 					<input class="xlarge" id="email" name="email" size="30" type="email" required>
